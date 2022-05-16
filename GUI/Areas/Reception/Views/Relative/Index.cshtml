@@ -1,0 +1,67 @@
+﻿@model GetRelative
+<partial name="Sider" model="4" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <header class="w3-container">
+                <div class="w3-left">
+                    <a asp-controller="Relative" asp-action="Add" asp-route-Admission="@Model.AdmissionID"
+                       asp-route-ssn="@Model.SSN" class="btn btn-outline-primary">Add new Relative</a>
+                </div>
+                <div class="w3-right">
+                    <h3 class="text-right h3">Patient's company record</h3>
+                </div>
+            </header>
+            <br />
+        </div>
+
+        <div class="alert-success">
+            @TempData["success"]
+        </div>
+
+        <br />
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <table class="table table-hover table-responsive-sm table-responsive-xl" align="center">
+                <thead class="bg-primary w3-text-white">
+                    <tr>
+                        <th>Name</th>
+                        <th>SSN</th>
+                        <th>Phone</th>
+                        <th>Relation</th>
+                        <th>Sex</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Companies)
+                    {
+                        <tr title="Modifying Relative Data and adding him for the current time"
+                            onclick="document.location ='@Url.Action("Edit", "Relative",
+                            new { @Admission = Model.AdmissionID, @ssn = Model.SSN,
+                                @Personid = item.Value.Relative.SSN})';">
+                            <td>@item.Value.Relative.Name</td>
+                            <td>@item.Value.Relative.SSN</td>
+                            <td>@item.Value.Relative.Phone</td>
+                            <td>@item.Value.PatientRelative.Relation</td>
+                            <td>@item.Value.Relative.Sex</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+            <div class="form-group btn-group w3-container">
+                <a asp-action="Sheat" asp-controller="Patients"
+                   asp-route-Admission="@Model.AdmissionID"
+                   class="btn btn-outline-success">Back</a>
+            </div>
+
+            <br />
+        </div>
+
+    </div>
+
+</div>

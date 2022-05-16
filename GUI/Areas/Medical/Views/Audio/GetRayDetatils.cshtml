@@ -1,0 +1,60 @@
+﻿@model GetPatientInvestigation
+
+@{string clinic = ViewData["clinic"].ToString(); }
+<partial name="Sider"
+         model="new SiderHelper { Model = 9, ClinicTitle = clinic,Admission = Model.Admission}" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div>
+            @await Component.InvokeAsync("PatientsData", new { AdmissionID = Model.Admission })
+        </div>
+
+        <br />
+
+        <div class="w3-card w3-animate-zoom bg-white w3-container">
+
+            <br />
+            <div class="w3-container">
+
+                <div class="form-group w3-container">
+                    <label class="form-control-label font-weight-bold">Ray</label>
+                    <p class="form-control">
+                        @Model.PatientInvestigation.Category   >>
+                        @Model.PatientInvestigation.Type
+                    </p>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="Investigation.Note" class="form-control-label font-weight-bold"></label>
+                    <p class="form-control">@Model.Investigation.Note</p>
+                    <span asp-validation-for="Investigation.Note" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="Investigation.Result" class="form-control-label font-weight-bold"></label>
+                    <p class="form-control">@Model.Investigation.Result</p>
+                    <span asp-validation-for="Investigation.Result" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label class="form-control-label font-weight-bold">Report</label>
+                    <p class="form-control">@Model.Investigation.Comment</p>
+                    <span asp-validation-for="Investigation.Comment" class="text-danger"></span>
+                </div>
+
+                @foreach (var item in Model.Files)
+                {
+                    <img src="/Medical/Department/ViewImage/@item.Key"
+                         class="img-thumbnail w3-third" alt='@Model.Investigation.Type' />
+                }
+
+            </div>
+            <br />
+
+        </div>
+
+    </div>
+</div>

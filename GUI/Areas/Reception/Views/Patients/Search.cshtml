@@ -1,0 +1,95 @@
+﻿@model PatientSearch
+<partial name="Sider" model="2" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <header class="w3-container">
+                <div class="w3-left w3-third">
+                    <h6 class="h6">Please confirm that the Address or telephone number has not been changed by the patient</h6>
+                </div>
+                <div class="w3-twothird M3ysearch-container">
+                    <form asp-area="Reception" asp-controller="Patients" asp-action="Search" method="get">
+                        <button type="submit" class="M3ySearchButton btn-outline-secondary"><i class="fa fa-search"></i></button>
+                        <input id="Search" asp-for="Search" type="search"
+                               placeholder="Search for Patient" class="M3ySearch" style="font-size: 17px;width:60%;" />
+                    </form>
+                </div>
+                <br />
+            </header>
+            <br />
+        </div>
+
+        <br />
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <table class="table table-hover table-responsive-sm table-responsive-xl">
+                <thead class="bg-primary w3-text-white">
+                    <tr>
+                        <th>Name</th>
+                        <th>SSN</th>
+                        <th>Phone</th>
+                        <th>Age</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @try
+                    {
+                        @foreach (var item in Model.Patients)
+                        {
+                            <tr onclick="document.location =
+                        '@Url.Action("Edit", "Patients",new { @ssn = item.Value.SSN})';">
+                                <td>
+                                    @item.Value.Name
+                                </td>
+                                <td>@item.Value.SSN</td>
+                                <td>@item.Value.Phone</td>
+                                <td>@item.Value.Age</td>
+                            </tr>
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+        <div page-model="@Model.PagingInfo" page-action="Search"
+             page-classes-enabled="true"
+             page-class="btn"
+             page-search="@Model.Search"
+             page-class-normal="btn-danger"
+             page-class-selected="btn-primary"
+             class="btn-group float-left m-1 ">
+        </div>
+
+    </div>
+</div>
+
+<script>
+     $(function () {
+        $('#Search').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("SearchResult", "Patients")',
+                    data: { search: $("#Search").val() },
+                    dataType: "json",
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item, value: item };
+                        }));
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+    });
+</script>

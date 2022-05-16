@@ -1,0 +1,25 @@
+﻿@model AdmissionHistory
+
+@{string clinic = ViewData["clinic"].ToString(); }
+<partial name="Sider"
+         model="new SiderHelper { Model = 3, ClinicTitle = clinic,Admission = Model.Admission}" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <div class="m-content">
+
+        <div>
+            @await Component.InvokeAsync("PatientsData", new { AdmissionID = Model.Admission })
+        </div>
+
+        <form asp-area="Medical" asp-controller="Endemic" asp-action="History" method="post">
+            <br />
+
+            <partial name="_History" model="Model" />
+
+            <br />
+        </form>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/History.js"></script>

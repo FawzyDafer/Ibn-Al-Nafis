@@ -1,0 +1,72 @@
+﻿@model EditInvestigation
+
+<partial name="SiderRay" model="3" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="alert-danger">
+            @TempData["Error"]
+        </div>
+
+        <div class="w3-card w3-animate-zoom bg-white">
+            <br />
+            <h2 class="h2 w3-center">Edit Ray</h2>
+            <form asp-area="Laps" asp-controller="Ray" asp-action="EditRay"
+                  method="post" class="clearfix">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Investigation.TypeID" />
+
+                <div class="form-group w3-container">
+                    <label asp-for="Investigation.Type" class="form-control-label font-weight-bold"></label>
+                    <input asp-for="Investigation.Type" class="form-control" />
+                    <span asp-validation-for="Investigation.Type" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label class="form-control-label font-weight-bold">Category</label>
+                    <input id="Category" asp-for="Investigation.CategoryID" class="form-control" />
+                    <span asp-validation-for="Investigation.CategoryID" class="text-danger"></span>
+                </div>
+
+                <div class="form-inline btn-group w3-container">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="flaticon-edit-1"></i>
+                    </button>
+                    <a asp-area="Laps" asp-controller="Ray" asp-action="GetRays"
+                       class="btn btn-outline-danger">
+                        <i class="flaticon-cancel"></i>
+                    </a>
+                </div>
+            </form>
+            <br />
+        </div>
+
+    </div>
+</div>
+
+<script>
+
+     $(function () {
+         $('#Category').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("SearchCatResult", "Analytic")',
+                    data: { search: $("#Category").val() },
+                    dataType: "json",
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item, value: item };
+                        }));
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+    });
+
+</script>

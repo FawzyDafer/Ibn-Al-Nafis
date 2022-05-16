@@ -1,0 +1,66 @@
+﻿@model EPatientConsent
+
+<partial name="Sider" model="4" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <form name="AddForm" asp-area="Reception" asp-controller="PatientConsents"
+                  asp-action="Edit" method="post" enctype="multipart/form-data">
+                <input type="hidden" asp-for="AdmissionID" />
+                <input type="hidden" asp-for="PCID" />
+                <div class="w3-container w3-white w3-center">
+                    <h2 class="w3-wide">Edit Consent</h2>
+                    <h4 class="text-danger">@TempData["Error"]</h4>
+                    <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
+
+                    <div class="w3-container form-group">
+                        <select asp-for="ConID" class="form-control" id="Title">
+                            <option value="Please Select a consent">Select a consent</option>
+                            @foreach (var item in Model.Consents)
+                            {
+                                <option value="@item.Key">@item.Value.Description</option>
+                            }
+                        </select>
+                        <span class="text-danger" asp-validation-for="ConID"></span>
+                    </div>
+
+                    <div class="w3-container form-group">
+                        <div style="position:relative;">
+                            <a class='btn' href='javascript:;'>
+                                Image..
+                                <input id="Image" name="Image" asp-for="Image"
+                                       type="file" class="M3yUpload" style="width:100%" />
+                            </a>
+                        </div>
+                        <img id="demo" src="@Url.Action("ViewImage","PatientConsents",
+                                 new { @Personid = Model.PCID })"
+                             class="img-thumbnail" style="height:130px;width:130px;" />
+                        <span asp-validation-for="Image" class="text-danger"></span>
+                        <p class="text-danger" id="imgwide"></p>
+                    </div>
+
+                    <div class="w3-container form-group">
+                        <button type="submit" class="btn btn-outline-success">
+                            <i class="flaticon-edit-1"></i>
+                        </button>
+                        <a asp-area="Reception" asp-controller="PatientConsents" asp-action="Index"
+                           asp-route-Admission="@Model.AdmissionID" class="btn btn-outline-danger">
+                            <i class="flaticon-cancel"></i>
+                        </a>
+                    </div>
+
+                </div>
+            </form>
+            <br />
+        </div>
+    </div>
+</div>
+
+<script src="~/lib/jquery/Model.js"></script>
+<script>
+    $("#Image").change(function () {
+        readIMG(this, '#demo', 'imgwide');
+    });
+</script>

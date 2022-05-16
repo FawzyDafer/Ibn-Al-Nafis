@@ -1,0 +1,126 @@
+﻿@model ClincWorkingDays
+
+@{string clinic = ViewData["clinic"].ToString(); }
+<partial name="Sider"
+         model="new SiderHelper { Model = 0, ClinicTitle = clinic,Admission = Model.Admission}" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <div class="m-content">
+        <h2 class="h2 w3-center w3-wide">@Model.Clinic Clinic Working days</h2>
+        <h4 class="text-success w3-center">@TempData["Success"]</h4>
+        <h4 class="text-danger w3-center">@TempData["Error"]</h4>
+        <div class="w3-container w3-white w3-animate-zoom">
+            <form asp-area="Medical" asp-controller="Urology" asp-action="Settings"
+                  method="post">
+                <input type="hidden" asp-for="Clinic" />
+                <input type="hidden" asp-for="Admission" />
+                <br />
+
+                <div class="form-group w3-container w3-half">
+                    <label asp-for="Saturday" class="form-control-label font-weight-bold"></label>
+                    <div class="form-check-inline container">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Saturday" value="7" />
+                            <label class="form-check-label font-weight-bold"> Working</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Saturday" value="-1" />
+                            <label class="form-check-label font-weight-bold">Holiday</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group w3-container w3-half">
+                    <label asp-for="Sunday" class="form-control-label font-weight-bold"></label>
+                    <div class="form-check-inline container">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Sunday" value="1" />
+                            <label class="form-check-label font-weight-bold"> Working</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Sunday" value="-1" />
+                            <label class="form-check-label font-weight-bold">Holiday</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group w3-container w3-half">
+                    <label asp-for="Monday" class="form-control-label font-weight-bold"></label>
+                    <div class="form-check-inline container">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Monday" value="2" />
+                            <label class="form-check-label font-weight-bold"> Working</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Monday" value="-1" />
+                            <label class="form-check-label font-weight-bold">Holiday</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group w3-container w3-half">
+                    <label asp-for="Tuesday" class="form-control-label font-weight-bold"></label>
+                    <div class="form-check-inline container">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Tuesday" value="3" />
+                            <label class="form-check-label font-weight-bold"> Working</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Tuesday" value="-1" />
+                            <label class="form-check-label font-weight-bold">Holiday</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group w3-container w3-half">
+                    <label asp-for="Wednesday" class="form-control-label font-weight-bold"></label>
+                    <div class="form-check-inline container">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Wednesday" value="4" />
+                            <label class="form-check-label font-weight-bold"> Working</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Wednesday" value="-1" />
+                            <label class="form-check-label font-weight-bold">Holiday</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group w3-container w3-half">
+                    <label asp-for="Thursday" class="form-control-label font-weight-bold"></label>
+                    <div class="form-check-inline container">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Thursday" value="5" />
+                            <label class="form-check-label font-weight-bold"> Working</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Thursday" value="-1" />
+                            <label class="form-check-label font-weight-bold">Holiday</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group w3-container w3-half">
+                    <label asp-for="Friday" class="form-control-label font-weight-bold"></label>
+                    <div class="form-check-inline container">
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Friday" value="6" />
+                            <label class="form-check-label font-weight-bold"> Working</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" asp-for="Friday" value="-1" />
+                            <label class="form-check-label font-weight-bold">Holiday</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group w3-container">
+                    <button class="w3-center btn btn-outline-success" type="submit">
+                        <i class="flaticon-add-circular-button"></i>
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

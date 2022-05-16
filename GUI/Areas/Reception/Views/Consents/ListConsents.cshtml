@@ -1,0 +1,36 @@
+﻿@model Dictionary<string, Consent>
+
+@{
+    Layout = null;
+}
+
+@{
+    double c = Model.Count / 4;
+    int Length = Convert.ToInt32(Math.Ceiling(c));
+    var List = Model.Values.ToList();
+    int k = 0;
+}
+
+@for (int i = 0; i <= Length; i++, k += 4)
+{
+    <div class="w3-row-padding active">
+        <br />
+        @for (int j = k; j < k + 4; j++)
+        {
+            try
+            {
+                <div class="w3-quarter"
+                     onclick="document.location ='@Url.Action("Edit", "Consents",
+                            new { @Personid = List[j].ConID })';">
+                    <button class="w3-card M3ybtnaccordion" type="button">
+                        <p class="p-0 text-center">@List[j].Description</p>
+                    </button>
+                </div>
+            }
+            catch (Exception)
+            {
+                <div class="w3-quarter w3-card"></div>
+            }
+        }
+    </div>
+}

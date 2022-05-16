@@ -1,0 +1,102 @@
+﻿@model PatientRegestiration
+<partial name="Sider" model="4" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <div class="text-center">
+                <a asp-controller="PatientConsents" asp-action="Index" title="أقرارات المريض"
+                   asp-route-Admission="@Model.PatientClinic.Counter"
+                   class="btn btn-outline-dark">Consents record</a>
+                <a asp-controller="Relative" asp-action="Add"
+                   asp-route-ssn="@Model.Patient.SSN" asp-route-Admission="@Model.PatientClinic.Counter"
+                   class="btn btn-outline-dark">Add Relative</a>
+                <a asp-controller="Relative" asp-action="Index"
+                   asp-route-ssn="@Model.Patient.SSN" asp-route-Admission="@Model.PatientClinic.Counter"
+                   class="btn btn-outline-dark">Relative record</a>
+            </div>
+            <br />
+        </div>
+
+        <br />
+
+        <div class="alert-success">
+            @TempData["success"]
+        </div>
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+
+            <input type="hidden" asp-for="PatientClinic.Counter" />
+
+            <div class="w3-half">
+
+                <div class="form-group w3-container">
+                    <label asp-for="Patient.Name" class="form-control-label font-weight-bold"></label>
+                    <input asp-for="Patient.Name" readonly="readonly" class="form-control" />
+                    <span asp-validation-for="Patient.Name" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="Patient.Sex" class="form-control-label font-weight-bold"></label>
+                    <input asp-for="Patient.Sex" readonly="readonly" class="form-control">
+                    <span asp-validation-for="Patient.Sex" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="PatientClinic.Clinic" class="form-control-label font-weight-bold"></label>
+                    <input asp-for="PatientClinic.Clinic" readonly="readonly" class="form-control" />
+                    <span asp-validation-for="PatientClinic.Clinic" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="PatientClinic.State" class="form-control-label font-weight-bold"></label>
+                    <input asp-for="PatientClinic.State" readonly="readonly" class="form-control" />
+                    <span asp-validation-for="PatientClinic.State" class="text-danger"></span>
+                </div>
+
+            </div>
+
+            <div class="w3-half">
+
+                <div class="form-group w3-container">
+                    <label asp-for="Patient.SSN" class="form-control-label font-weight-bold"></label>
+                    <input asp-for="Patient.SSN" readonly="readonly" class="form-control" id="SSN" onblur="SetDate();" />
+                    <span asp-validation-for="Patient.SSN" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="Patient.DateOfBirth" class="form-control-label font-weight-bold"></label>
+                    <input asp-for="Patient.DateOfBirth" readonly="readonly" type="date" class="form-control" />
+                    <span asp-validation-for="Patient.DateOfBirth" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="Patient.Phone" class="form-control-label font-weight-bold"></label>
+                    <input asp-for="Patient.Phone" readonly="readonly" type="tel" class="form-control" />
+                    <span asp-validation-for="Patient.Phone" class="text-danger"></span>
+                </div>
+
+                <div class="form-check form-group w3-container">
+                    <input asp-for="PatientClinic.Emergency" readonly="readonly" type="checkbox" />
+                    <label asp-for="PatientClinic.Emergency" class="form-check-label font-weight-bold"></label>
+                </div>
+
+            </div>
+
+            <div class="form-group w3-container">
+                <label asp-for="Patient.Address" class="form-control-label"></label>
+                <input asp-for="Patient.Address" readonly="readonly" class="form-control" />
+                <span asp-validation-for="Patient.Address" class="text-danger"></span>
+            </div>
+
+            <div class="form-group w3-container">
+                <a asp-action="Index" class="btn btn-outline-success">Finish</a>
+            </div>
+
+            <br />
+        </div>
+
+    </div>
+</div>

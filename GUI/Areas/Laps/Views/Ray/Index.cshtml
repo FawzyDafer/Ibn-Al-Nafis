@@ -1,0 +1,107 @@
+﻿@model RayViewSearch
+<partial name="SiderRay" model="2" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+        @foreach (var item in Model.InvestigationView.Values)
+        {
+            <button class="M3yaccordion w3-card w3-animate-zoom bg-white"
+                    type="button">
+                <div class="w3-container">
+                    <h6 class="h6 M3yText w3-half" title="Patient Name">
+                        <b>Name:</b>
+                        @item.Patient.Name
+                    </h6>
+                    <h6 class="h6 M3yText w3-half" title="Patient Sex">
+                        <b>Sex:</b>
+                        @item.Patient.Sex
+                    </h6>
+                </div>
+                <div class="w3-container">
+                    <h6 class="h6 M3yText w3-half" title="Patient Age">
+                        <b>Age:</b>
+                        @item.Patient.Age
+                    </h6>
+                    <h6 class="h6 M3yText w3-half" title="Patient Blood Goup">
+                        @if (string.IsNullOrEmpty(item.Patient.BloodGroup))
+                        {
+                            <b onclick="document.getElementById('Blood').style.display='block'"
+                               class="btn btn-outline-primary">Add BloodGroup</b>
+                        }
+                        else
+                        {
+                            <b>@item.Patient.BloodGroup</b>
+                        }
+                    </h6>
+                </div>
+                <div class="w3-container">
+                    <h6 class="h6 M3yText w3-half" title="Patient Phone">
+                        <b>Phone:</b>
+                        @item.Patient.Phone
+                    </h6>
+                    <h6 class="h6 M3yText w3-half" title="Patient Address">
+                        <b>Address:</b>
+                        @item.Patient.Address
+                    </h6>
+                </div>
+                <div class="w3-container">
+                    <h6 class="h6 M3yText w3-half" title="Doctor Name">
+                        <b>Dr:</b>
+                        @item.Doctor.Name
+                    </h6>
+                    <h6 class="h6 M3yText w3-half" title="Clinic">
+                        <b>@item.Admission.Clinic Clinic</b>
+                    </h6>
+                </div>
+            </button>
+            <div class="M3ypanel w3-bar-block w3-animate-zoom">
+                @foreach (var investigation in item.PatientsInvestigations.Values)
+                {
+                    <div class="form-check form-group">
+                        <a asp-area="Laps" asp-controller="Ray" asp-action="AddRayData"
+                           class="float-left w3-bar-item w3-button btn" title="@investigation.Category"
+                           asp-route-uname="@investigation.PIID" style="width:80%;">
+                            @investigation.Type
+                        </a>
+                        <input checked='@investigation.Finish' id="@investigation.PIID" type="checkbox" class="float-right"
+                               onclick="Request('@investigation.PIID');" />
+                    </div>
+                }
+            </div>
+        }
+        <br />
+        <div page-model="@Model.PagingInfo" page-action="Index"
+             page-classes-enabled="true"
+             page-class="btn"
+             page-class-normal="btn-danger"
+             page-class-selected="btn-primary"
+             class="btn-group float-left m-1 ">
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var Request = function (PIID) {
+        var input = document.getElementById(PIID);
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetSample", "Analytic")',
+            data: { Checked: input.checked, PIID }
+        })
+    };
+
+    var acc = document.getElementsByClassName("M3yaccordion");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("M3yactive");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+</script>

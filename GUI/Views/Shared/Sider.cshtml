@@ -1,0 +1,118 @@
+﻿@model int?
+@{
+    string class1 = (Model == 1) ? "m-menu__item--active" : null;
+    string class2 = (Model == 2) ? "m-menu__item--active" : null;
+}
+<button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn"><i class="la la-close"></i></button>
+
+<div id="m_aside_left" class="m-grid__item m-aside-left  m-aside-left--skin-dark ">
+    <div id="m_ver_menu"
+         class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark "
+         m-menu-vertical="1"
+         m-menu-scrollable="0" m-menu-dropdown-timeout="500">
+        <ul class="m-menu__nav ">
+            <li class="m-menu__section m-menu__section--first">
+                <h4 class="m-menu__section-text w3-text-white" title="الأقسام">Department</h4>
+                <i class="m-menu__section-icon flaticon-more-v2"></i>
+            </li>
+            <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Admin" asp-controller="Staff" asp-action="Index"
+                   title="إدارة المستشفي" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-dashboard"></i>
+                    <span class="m-menu__link-text">Administration</span>
+                </a>
+            </li>
+            <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Reception" asp-controller="Patients" asp-action="Index"
+                   title="الإستقبال" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-notepad"></i>
+                    <span class="m-menu__link-text">Reception</span>
+                </a>
+            </li>
+            <li class="m-menu__item @class2" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="" asp-controller="Department" asp-action="Index"
+                   title="الأطباء" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-medical"></i>
+                    <span class="m-menu__link-text">Doctors</span>
+                </a>
+            </li>
+            <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"
+                m-menu-submenu-toggle="hover">
+                <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-layers"></i>
+                    <span class="m-menu__link-text" title="فحوصات">Investigation</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a><div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <span class="m-menu__link">
+                                <span class="m-menu__item-here"></span>
+                                <span class="m-menu__link-text" title="فحوصات">Investigation</span>
+                            </span>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a asp-area="Laps" asp-controller="Ray" asp-action="Index"
+                               class="m-menu__link" title="الأشعة">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i><span class="m-menu__link-text">Diagnostic Radiology</span>
+                            </a>
+                        </li>
+                        <li class="m-menu__item " aria-haspopup="true">
+                            <a asp-area="Laps" asp-controller="Analytic" asp-action="Index"
+                               class="m-menu__link" title="التحاليل">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i><span class="m-menu__link-text">Analytical Coefficient</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1">
+                <a href="#" class="m-menu__link" title="التمريض">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-doc"></i>
+                    <span class="m-menu__link-text">Nurses</span>
+                </a>
+            </li>
+            <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1">
+                <a href="#" class="m-menu__link" title="بنك الدم">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-graphic"></i>
+                    <span class="m-menu__link-text">Blood bank</span>
+                </a>
+            </li>
+            <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1">
+                <a href="#" class="m-menu__link" title="العمليات الجراحية">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-network"></i>
+                    <span class="m-menu__link-text">Surgeries</span>
+                </a>
+            </li>
+            <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1">
+                <a href="#" class="m-menu__link" title="الطوارئ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-alert"></i>
+                    <span class="m-menu__link-text">Emergency</span>
+                </a>
+            </li>
+            <li class="m-menu__section ">
+                <h4 class="m-menu__section-text w3-text-white" title="تخصصات اخرى">Others</h4>
+                <i class="m-menu__section-icon flaticon-more-v2"></i>
+            </li>
+            <li class="m-menu__item @class1" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="" asp-controller="Home" asp-action="About" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-information"></i>
+                    <span class="m-menu__link-text" title="فريق العمل">About US</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

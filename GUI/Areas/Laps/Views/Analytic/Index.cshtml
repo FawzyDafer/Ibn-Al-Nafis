@@ -1,0 +1,30 @@
+﻿@model InvestigationViewSearch
+<partial name="Sider" model="2" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+        <div id="acontent">
+            <partial name="ListPatientInvestigation" model="Model.InvestigationView" />
+        </div>
+        <br />
+        <div page-model="@Model.PagingInfo" page-action="Index"
+             page-classes-enabled="true"
+             page-class="btn"
+             page-class-normal="btn-danger"
+             page-class-selected="btn-primary"
+             class="btn-group float-left m-1 ">
+        </div>
+
+    </div>
+</div>
+
+<script>
+    var Request = function (PIID) {
+        var input = document.getElementById(PIID);
+        $.ajax({
+            type: "GET",
+            url: '@Url.Action("GetSample", "Analytic")',
+            data: { Checked: input.checked, PIID }
+        })
+    };
+</script>

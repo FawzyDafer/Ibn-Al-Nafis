@@ -1,0 +1,62 @@
+﻿@model FllowUp
+
+@{
+    string clinic = ViewData["clinic"].ToString();
+    string controller = clinic.Replace(" ", string.Empty);
+}
+
+<partial name="Sider"
+         model="new SiderHelper { Model = 11, ClinicTitle = clinic,Admission = Model.AdmisssionID}" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div>
+            @await Component.InvokeAsync("PatientsData", new { AdmissionID = Model.AdmisssionID })
+        </div>
+
+        <br />
+
+        <div class="w3-card w3-animate-zoom bg-white w3-container">
+            <br />
+
+            <form asp-area="Medical" asp-controller="@controller" asp-action="AddFollowUp"
+                  method="post">
+
+                <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
+                <input type="hidden" asp-for="AdmisssionID" />
+                <input type="hidden" asp-for="FllowUpID" />
+                <p class="alert-success">@TempData["Sucssess"]</p>
+                <p class="alert-danger">@TempData["Error"]</p>
+
+                <div class="w3-container form-group">
+                    <label class="form-control-label font-weight-bold">Follow Up Data</label>
+                    <input asp-for="FollowUp" type="date" class="form-control" />
+                    <span class="text-danger" asp-validation-for="FollowUp"></span>
+                </div>
+
+                <div class="w3-container form-group">
+                    <label class="form-control-label font-weight-bold">Follow Up Reason</label>
+                    <textarea asp-for="FllowupReason" class="form-control"
+                              placeholder="Add Follow Up reason" rows="5"></textarea>
+                    <span class="text-danger" asp-validation-for="FllowupReason"></span>
+                </div>
+
+                <br />
+
+                <div class="col-sm-6 offset-sm-3 text-center">
+                    <div class="form-inline justify-content-center">
+                        <button class="btn btn-outline-success" type="submit">
+                            <i class="flaticon-add-circular-button"></i>
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <br />
+        </div>
+
+    </div>
+</div>

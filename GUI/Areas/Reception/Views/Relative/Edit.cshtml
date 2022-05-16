@@ -1,0 +1,127 @@
+﻿@model CreatePatientRelative
+<partial name="Sider" model="4" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <h3 class="text-center h3">Edit Relative data</h3>
+            <form asp-action="Edit" asp-controller="Relative" method="post">
+
+                <input asp-for="PatientRelative.PatientSSN" type="hidden" />
+                <input asp-for="PatientRelative.RelativeSSN" type="hidden" />
+                <input asp-for="PatientRelative.AdmissionID" type="hidden" />
+                <input asp-for="Relative.SSN" type="hidden" />
+
+                <div class="w3-half w3-container">
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Relative.Name" class="form-control-label font-weight-bold"></label>
+                        <input asp-for="Relative.Name" class="form-control" readonly />
+                        <span asp-validation-for="Relative.Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Relative.Sex" class="form-control-label font-weight-bold"></label>
+                        <div class="form-check-inline container">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="Relative.Sex" value="Male" />
+                                <label class="form-check-label font-weight-bold"> Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="Relative.Sex" value="Female" />
+                                <label class="form-check-label font-weight-bold"> Female</label>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Relative.Sex" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="form-group w3-container">
+                        <label asp-for="PatientRelative.Relation" class="form-control-label font-weight-bold"></label>
+                        <select asp-for="PatientRelative.Relation" class="form-control">
+                            <option value="">Please select a relation</option>
+                            <option value="أم">أم</option>
+                            <option value="أب">أب</option>
+                            <option value="أخ">أخ</option>
+                            <option value="أخت">أخت</option>
+                            <option value="ابن">ابن</option>
+                            <option value="أبنة">أبنة</option>
+                            <option value="الجد">الجد</option>
+                            <option value="الجدة">الجدة</option>
+                            <option value="زوج">زوج</option>
+                            <option value="زوجة">زوجة</option>
+                            <option value="عم">عم</option>
+                            <option value="عمة">عمة</option>
+                            <option value="خال">خال</option>
+                            <option value="خالة">خالة</option>
+                            <option value="ابن العم">ابن العم</option>
+                            <option value="ابن العمة">ابن العمة</option>
+                            <option value="ابن الخال">ابن الخال</option>
+                            <option value="ابن الخالة">ابن الخالة</option>
+                            <option value="صديق">صديق</option>
+                        </select>
+                        <span asp-validation-for="PatientRelative.Relation" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="w3-half w3-left w3-container">
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Relative.SSN" class="form-control-label font-weight-bold"></label>
+                        <input asp-for="Relative.SSN" class="form-control" readonly />
+                        <span asp-validation-for="Relative.SSN" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Relative.Phone" class="form-control-label font-weight-bold"></label>
+                        <input asp-for="Relative.Phone" type="tel" class="form-control" />
+                        <span asp-validation-for="Relative.Phone" class="text-danger"></span>
+                    </div>
+
+                </div>
+
+                <div class="w3-container">
+                    <div class="form-group w3-container">
+                        <label asp-for="Relative.Address" class="form-control-label font-weight-bold"></label>
+                        <div class="w3-container">
+                            <div class="w3-half">
+                                <select id="Address" class="form-control w3-half"></select>
+                                <button type="button" class="btn btn-outline-success" onclick=";AddressHidden()">
+                                    <i class="fa fa-arrow-circle-o-left"></i>
+                                </button>
+                                <button type="button" class="btn btn-outline-success" onclick=";AddressShow()">
+                                    <i class="fa fa-arrow-circle-o-right"></i>
+                                </button>
+                            </div>
+                            <div class="form-group w3-half">
+                                <input asp-for="Relative.Address" id="Government" readonly="readonly"
+                                       class="form-control" />
+                            </div>
+                        </div>
+                        <span asp-validation-for="Relative.Address" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-inline btn-group w3-container">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="flaticon-edit-1"></i>
+                    </button>
+                    <a asp-action="Index" asp-controller="Relative"
+                       asp-route-ssn="@Model.PatientRelative.PatientSSN"
+                       asp-route-Admission="@Model.PatientRelative.AdmissionID"
+                       class="btn btn-outline-danger"><i class="flaticon-cancel"></i></a>
+                </div>
+
+            </form>
+            <br />
+        </div>
+
+    </div>
+</div>
+<script src="~/lib/M3Y/Government.js"></script>
+<script>
+    $(document).ready(AddressGet());
+</script>

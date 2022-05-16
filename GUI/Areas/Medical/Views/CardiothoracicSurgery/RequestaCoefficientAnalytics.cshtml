@@ -1,0 +1,98 @@
+﻿@model RequestPatientInvestigation
+
+@{string clinic = ViewData["clinic"].ToString(); }
+<partial name="Sider"
+         model="new SiderHelper { Model = 4, ClinicTitle = clinic,Admission = Model.AdmessionID}" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div>
+            @await Component.InvokeAsync("PatientsData", new { AdmissionID = Model.AdmessionID })
+        </div>
+
+        <br />
+        <div class="w3-card w3-animate-zoom bg-white w3-container">
+            <br />
+            <form asp-area="Medical" asp-controller="CardiothoracicSurgery"
+                  asp-action="RequestaCoefficientAnalytics" method="post"
+                  data-ajax="true"
+                  data-ajax-method="POST"
+                  data-ajax-loading="#divloading"
+                  data-ajax-success="Success2"
+                  data-ajax-failure="Failure2">
+
+                <input asp-for="AdmessionID" type="hidden" />
+                <input asp-for="Investigation" type="hidden" />
+
+                <div class="text-success" id="sucess">@TempData["Sucssess"]</div>
+                <div class="text-success" id="failuer">@TempData["Error"]</div>
+                @foreach (var item in Model.Investigation.Values.GroupBy(x => x.Category))
+                {
+                    <button class="M3yaccordion" type="button">@item.Key</button>
+                    <div class="M3ypanel">
+                        @{
+                            var investigations = Model.Investigation.Where(x => x.Value.Category == item.Key);
+                            int i = 0;
+                        }
+                        @foreach (var inves in investigations)
+                        {
+                            <div class="w3-third form-check-inline">
+                                <input type="checkbox" class="form-check w3-margin-right"
+                                       value="@inves.Value.TypeID"
+                                       asp-for="Types[i]" />
+                                @inves.Value.Type
+                            </div>
+                            i++;
+                        }
+
+                    </div>
+                }
+
+                <div class="w3-container">
+                    <label asp-for="Note" class="col-form-label"></label>
+                    <input type="text" asp-for="Note" class="form-control" placeholder="Add your note" />
+                    <span asp-validation-for="Note" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-inline btn-group w3-container">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="flaticon-add-circular-button"></i>
+                    </button>
+                </div>
+
+            </form>
+            <br />
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+    var acc = document.getElementsByClassName("M3yaccordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("M3yactive");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+
+    function Success2() {
+        document.getElementById('failuer').innerHTML = ' ';
+        document.getElementById('sucess').innerHTML = 'Investigation has been requested successfully';
+    }
+
+    function Failure2() {
+        document.getElementById('failuer').innerHTML = 'There is an error while attemp to proceed your request.';
+    }
+
+</script>

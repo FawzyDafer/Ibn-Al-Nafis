@@ -1,0 +1,73 @@
+﻿@model SearchLogFile
+
+<partial name="Sider" model="2" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <header class="w3-container M3ysearch-container">
+                <div class="w3-left w3-third">
+                    <h4>Log File Detailed</h4>
+                </div>
+                <div class=" w3-twothird">
+                    <form asp-area="Admin" asp-controller="LogFile" asp-action="Index" method="get">
+                        <button type="submit" class="M3ySearchButton  btn-outline-secondary"><i class="fa fa-search"></i></button>
+                        <input id="Search" asp-for="Search" type="search"
+                               placeholder="Search for LogFile" class="M3ySearch" style="font-size: 17px;width:60%;" />
+                    </form>
+                </div>
+            </header>
+            <br />
+        </div>
+
+        <br />
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+
+            <div class="w3-half w3-container">
+                <div class="form-group">
+                    <b>User Name: </b> @Model.DetailsLogFile.Name
+                </div>
+                <div class="form-group">
+                    <b>Qualification: </b> @Model.DetailsLogFile.Qualification
+                </div>
+                <div class="form-group">
+                    <b>Phone: </b> @Model.DetailsLogFile.PhoneNumber
+                </div>
+            </div>
+
+            <div class="w3-half w3-container">
+                <div class="form-group">
+                    <b>Jop: </b> @Model.DetailsLogFile.Jop
+                </div>
+                <div class="form-group">
+                    <b>Specialization: </b> @Model.DetailsLogFile.Specialization
+                </div>
+                <div class="form-group">
+                    <b>DateTime: </b> @Model.DetailsLogFile.DateTime
+                </div>
+            </div>
+
+            <div class="form-group w3-container">
+                <label asp-for="DetailsLogFile.Description"
+                       class="form-control-label font-weight-bold"></label>
+                <textarea class="form-control font-weight-bold" readonly="readonly" rows="6">
+@Model.DetailsLogFile.Description</textarea>
+            </div>
+
+            <div class="btn-group form-group w3-container">
+                <a class="btn btn-outline-primary" asp-area="Admin"
+                   asp-controller="LogFile" asp-action="Index"
+                   asp-route-Search="@Model.Search" asp-route-Page="@Model.Page">
+                    <i class="fa fa-arrow-circle-left w3-large"></i>
+                </a>
+            </div>
+
+            <br />
+        </div>
+
+    </div>
+</div>

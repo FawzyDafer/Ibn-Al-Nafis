@@ -1,0 +1,52 @@
+﻿@model Digonose
+
+@{
+    string clinic = ViewData["clinic"].ToString();
+    string controller = clinic.Replace(" ", string.Empty);
+}
+<partial name="Sider"
+         model="new SiderHelper { Model = 10, ClinicTitle = clinic,Admission = Model.Admission}" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <div class="m-content">
+
+        <div>
+            @await Component.InvokeAsync("PatientsData", new { AdmissionID = Model.Admission })
+        </div>
+
+        <form asp-area="Medical" asp-controller="@controller" asp-action="Examination" method="post">
+            <br />
+
+            <p class="alert-success">@TempData["Sucssess"]</p>
+            <p class="alert-danger">@TempData["error"]</p>
+
+            <input type="hidden" asp-for="Admission" />
+            <input type="hidden" asp-for="Clinic" />
+            <input type="hidden" asp-for="ID" />
+
+            <div class="w3-card w3-animate-zoom bg-white">
+                <br />
+                <h3 class="h3 text-center">Examinations</h3>
+
+                <div class="form-group w3-container">
+                    <textarea asp-for="Examination" rows="15" class="form-control"></textarea>
+                    <span asp-validation-for="Examination" class="text-danger"></span>
+                </div>
+
+                <br />
+                <div class="col-sm-6 offset-sm-3 text-center">
+                    <div class="form-inline justify-content-center">
+                        <button class="btn btn-outline-success" type="submit">
+                            <i class="flaticon-add-circular-button"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <br />
+            </div>
+
+            <br />
+        </form>
+
+    </div>
+</div>

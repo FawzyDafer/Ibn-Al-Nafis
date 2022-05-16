@@ -1,0 +1,689 @@
+﻿@model AdmissionHistory
+
+<p class="alert-danger">@TempData["error"]</p>
+
+<input asp-for="Admission" hidden="hidden" />
+<input asp-for="PainAssesment.PainID" hidden="hidden" />
+<input asp-for="GynecologicalHistory.ID" hidden="hidden" />
+<input asp-for="FamilyHistory.Diabetes.ID" hidden="hidden" />
+<input asp-for="FamilyHistory.Cancer.ID" hidden="hidden" />
+<input asp-for="FamilyHistory.Hypertention.ID" hidden="hidden" />
+<input asp-for="FamilyHistory.Stroke.ID" hidden="hidden" />
+<input asp-for="FamilyHistory.IshemicHeart.ID" hidden="hidden" />
+<input asp-for="FamilyHistory.ActiveTuberculosis.ID" hidden="hidden" />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <h4>Reason for admission and presenting Complain(s):</h4>
+        <textarea class="form-control" rows="5" asp-for="Reason"></textarea>
+        <span asp-validation-for="Reason" class="text-danger"></span>
+    </div>
+
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="w3-container active">
+
+        <div class="w3-container">
+            <div class="w3-third">
+                <h4>Pain assessment:</h4>
+            </div>
+
+            <div class="form-group w3-twothird">
+                <label class="col-form-label font-weight-bold">
+                    Does the patient have pain?
+                </label>
+                <div class="form-check-inline container">
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" onchange="hide('pain')"
+                               asp-for="PainAssesment.DoesPatienthaspain" value="False" />
+                        <label class="form-check-label font-weight-bold">No</label>
+                    </div>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input" onchange="Show('pain')"
+                               asp-for="PainAssesment.DoesPatienthaspain" value="True" />
+                        <label class="form-check-label font-weight-bold">Yes</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pain">
+            <div class="form-group w3-container">
+                <label class="col-form-label font-weight-bold">
+                    if yes analyze as any symptom in:
+                    rate it on Box intensity scale where 0 equal no pain & 10
+                </label>
+                <input asp-for="PainAssesment.Rate" class="form-control"
+                       type="range" min="0" max="10" />
+            </div>
+
+            <div class="w3-half">
+                <div class="form-group w3-container">
+                    <label class="col-form-label font-weight-bold">Location:</label>
+                    <input asp-for="PainAssesment.Location" type="text" class="form-control" />
+                </div>
+                <div class="form-group w3-container">
+                    <label class="col-form-label font-weight-bold">Character:</label>
+                    <input asp-for="PainAssesment.Character" type="text" class="form-control" />
+                </div>
+                <div class="form-group w3-container">
+                    <label class="col-form-label font-weight-bold">Frequency:</label>
+                    <input asp-for="PainAssesment.Frequency" type="text" class="form-control" />
+                </div>
+                <div class="form-group w3-container">
+                    <label class="col-form-label font-weight-bold">Relieves by:</label>
+                    <input asp-for="PainAssesment.Relieves" type="text" class="form-control" />
+                </div>
+            </div>
+
+            <div class="w3-half">
+                <div class="form-group w3-container">
+                    <label class="col-form-label font-weight-bold">Referral:</label>
+                    <input asp-for="PainAssesment.Referral" type="text" class="form-control" />
+                </div>
+                <div class="form-group w3-container">
+                    <label class="col-form-label font-weight-bold">Duration:</label>
+                    <input asp-for="PainAssesment.Duration" type="number" min="1"
+                           class="form-control" />
+                </div>
+                <div class="form-group w3-container">
+                    <label class="col-form-label font-weight-bold">Aggravates by:</label>
+                    <input asp-for="PainAssesment.Aggravates" type="text" class="form-control" />
+                </div>
+                <div class="form-group w3-container">
+                    <label class="col-form-label font-weight-bold">Past pain:</label>
+                    <input asp-for="PainAssesment.PastPain" type="text" class="form-control" />
+                </div>
+            </div>
+
+            <div class="w3-container form-group">
+                <label class="col-form-label font-weight-bold">Impact on daily activities:</label>
+                <textarea asp-for="PainAssesment.Impact" class="form-control" rows="5"></textarea>
+            </div>
+
+            <div class="w3-container form-group">
+                <label class="col-form-label font-weight-bold">Previous therapies:</label>
+                <textarea asp-for="PainAssesment.Therapies" class="form-control" rows="5"></textarea>
+            </div>
+        </div>
+
+    </div>
+
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <h4>
+            History of each presenting complaints: Location. Quality, Quantity or severity. Tinting, Setting in
+            which it occurs, Remitting or exacerbating factors, associated manifestations and effect on patient life eg mood, job.
+        </h4>
+        <textarea class="form-control" rows="10" asp-for="History"></textarea>
+        <span asp-validation-for="History" class="text-danger"></span>
+    </div>
+
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h4 class="h4">System enquiry:</h4>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="hide('system')"
+                       asp-for="SystemEnquiry.Systemenquiry" value="False" />
+                <label class="form-check-label font-weight-bold">Negative</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="document.getElementById('system').style.display = 'block';"
+                       asp-for="SystemEnquiry.Systemenquiry" value="True" />
+                <label class="form-check-label font-weight-bold">Positive</label>
+            </div>
+            <h5 class="w3-margin-left h5">If positve tick a box and explain</h5>
+        </div>
+    </div>
+
+    <div id="system">
+
+        <div class="form-group w3-container">
+            <div class="form-check-inline container">
+                <label class="col-form-label font-weight-bold">Head and Neck</label>
+            </div>
+            <input type="text" asp-for="SystemEnquiry.HeadandNeck" class="form-control" />
+        </div>
+
+        <div class="form-group w3-container">
+            <div class="form-check-inline container">
+                <label class="col-form-label font-weight-bold">CNS</label>
+            </div>
+            <input type="text" asp-for="SystemEnquiry.CNS" class="form-control" />
+        </div>
+
+        <div class="form-group w3-container">
+            <div class="form-check-inline container">
+                <label class="col-form-label font-weight-bold">CVS</label>
+            </div>
+            <input type="text" asp-for="SystemEnquiry.CVS" class="form-control" />
+        </div>
+
+        <div class="form-group w3-container">
+            <div class="form-check-inline container">
+                <label class="col-form-label font-weight-bold">Respiratory System</label>
+            </div>
+            <input type="text" asp-for="SystemEnquiry.RespiratorySystem" class="form-control" />
+        </div>
+
+        <div class="form-group w3-container">
+            <div class="form-check-inline container">
+                <label class="col-form-label font-weight-bold">GIT</label>
+            </div>
+            <input type="text" asp-for="SystemEnquiry.GIT" class="form-control" />
+        </div>
+
+        <div class="form-group w3-container">
+            <div class="form-check-inline container">
+                <label class="col-form-label font-weight-bold">Grenitourinary</label>
+            </div>
+            <input type="text" asp-for="SystemEnquiry.Grenitourinary" class="form-control" />
+        </div>
+
+        <div class="form-group w3-container">
+            <div class="form-check-inline container">
+                <label class="col-form-label font-weight-bold">Skin</label>
+            </div>
+            <input type="text" asp-for="SystemEnquiry.Skin" class="form-control" />
+        </div>
+
+        <div class="form-group w3-container">
+            <div class="form-check-inline container">
+                <label class="col-form-label font-weight-bold">Musculo skeletal</label>
+            </div>
+            <input type="text" asp-for="SystemEnquiry.Musculoskeletal" class="form-control" />
+        </div>
+
+    </div>
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h4 class="h4">Nutritional Assessment:</h4>
+        </div>
+    </div>
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <label class="col-form-label font-weight-bold">Abnormal nutritional state:</label>
+        </div>
+        <input type="text" asp-for="Nutritional.Abnormal" class="form-control" />
+    </div>
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <label class="col-form-label font-weight-bold">Unhealthy current dietry habits:</label>
+        </div>
+        <input type="text" asp-for="Nutritional.Unhealthy" class="form-control" />
+    </div>
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <label class="col-form-label font-weight-bold">Any diseasethat needs dietry modification:</label>
+        </div>
+        <input type="text" asp-for="Nutritional.Disease" class="form-control" />
+    </div>
+
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h4 class="h4">Current Medicines:</h4>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="hide('medicine')"
+                       asp-for="Medicine[0].Checked" value="False" />
+                <label class="form-check-label font-weight-bold">No</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="Show('medicine')"
+                       asp-for="Medicine[0].Checked" value="True" />
+                <label class="form-check-label font-weight-bold">Yes</label>
+            </div>
+            <h5 class="w3-margin-left h5">If yes, explain</h5>
+        </div>
+    </div>
+
+    <table class="table table-striped" id="medicine">
+        <thead class="bg-primary w3-text-white text-center font-weight-bold">
+            <tr>
+                <th>Name</th>
+                <th>Dose</th>
+                <th>Frequency</th>
+                <th>Reason if knowen</th>
+                <th>Continue</th>
+                <th>
+                    <button type="button" class="btn btn-success" onclick="addMedicine('#medicine')">
+                        <i class="flaticon-add-circular-button"></i>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" class="form-control" asp-for="Medicine[0].Medicine" /></td>
+                <td><input type="text" class="form-control" asp-for="Medicine[0].Dose" /></td>
+                <td><input type="text" class="form-control" asp-for="Medicine[0].Frequency" /></td>
+                <td><input type="text" class="form-control" asp-for="Medicine[0].ReasonIfKnown" /></td>
+                <td><input type="checkbox" class="form-check-input" asp-for="Medicine[0].Continue" /></td>
+                <td><input type="hidden" asp-for="Medicine[0].MedicineID" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h4 class="h4">Past Medical History:</h4>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="hide('pasthistory')"
+                       asp-for="PastHistory[0].Checked" value="False" />
+                <label class="form-check-label font-weight-bold">Negative</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="Show('pasthistory')"
+                       asp-for="PastHistory[0].Checked" value="True" />
+                <label class="form-check-label font-weight-bold">Positive</label>
+            </div>
+            <h5 class="w3-margin-left h5">If Positive, explain</h5>
+        </div>
+    </div>
+
+    <table class="table table-striped" id="pasthistory">
+        <thead class="bg-primary w3-text-white text-center font-weight-bold">
+            <tr>
+                <th>Problem</th>
+                <th>Details</th>
+                <th>
+                    <button type="button" class="btn btn-success" onclick="addHisttory('#pasthistory')">
+                        <i class="flaticon-add-circular-button"></i>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" class="form-control" asp-for="PastHistory[0].Problem" /></td>
+                <td><input type="text" class="form-control" asp-for="PastHistory[0].Details" /></td>
+                <td><input type="hidden" asp-for="PastHistory[0].ID" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h4 class="h4">Past Surgial History:</h4>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="hide('surgical')"
+                       asp-for="SurgialHistory[0].PastSerguies" value="False" />
+                <label class="form-check-label font-weight-bold">Negative</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="Show('surgical')"
+                       asp-for="SurgialHistory[0].PastSerguies" value="True" />
+                <label class="form-check-label font-weight-bold">Positive</label>
+            </div>
+            <h5 class="w3-margin-left h5">If Positive, explain</h5>
+        </div>
+    </div>
+
+    <table class="table table-striped" id="surgical">
+        <thead class="bg-primary w3-text-white text-center font-weight-bold">
+            <tr>
+                <th>Procedure</th>
+                <th>Details</th>
+                <th>
+                    <button type="button" class="btn btn-success" onclick="addsurgy('#surgical')">
+                        <i class="flaticon-add-circular-button"></i>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" class="form-control" asp-for="SurgialHistory[0].Procedure" /></td>
+                <td><input type="text" class="form-control" asp-for="SurgialHistory[0].Details" /></td>
+                <td><input type="hidden" asp-for="SurgialHistory[0].ID" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h4 class="h4">Allergies and Adverse Reactions:</h4>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="hide('allerigal')"
+                       asp-for="Allergies[0].Reaction" value="False" />
+                <label class="form-check-label font-weight-bold">Negative</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="Show('allerigal')"
+                       asp-for="Allergies[0].Reaction" value="True" />
+                <label class="form-check-label font-weight-bold">Positive</label>
+            </div>
+            <h5 class="w3-margin-left h5">If Positive, explain</h5>
+        </div>
+    </div>
+
+    <table class="table table-striped" id="allerigal">
+        <thead class="bg-primary w3-text-white text-center font-weight-bold">
+            <tr>
+                <th>Name</th>
+                <th>Reaction Manifestations</th>
+                <th>
+                    <button type="button" class="btn btn-success" onclick="addManifestations('#allerigal')">
+                        <i class="flaticon-add-circular-button"></i>
+                    </button>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" class="form-control" asp-for="Allergies[0].Name" /></td>
+                <td><input type="text" class="form-control" asp-for="Allergies[0].ReactionManifestations" /></td>
+                <td><input type="hidden" asp-for="Allergies[0].ID" /></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h4 class="h4">Family History:</h4>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="FamilyHistory.HasFamilyHistory" value="False" onchange="hide('family')" />
+                <label class="form-check-label font-weight-bold">Negative</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" onchange="Show('family')"
+                       asp-for="FamilyHistory.HasFamilyHistory" value="True" />
+                <label class="form-check-label font-weight-bold">Positive</label>
+            </div>
+            <h5 class="w3-margin-left h5">If Positive, explain</h5>
+        </div>
+    </div>
+
+    <table class="table table-striped" id="family">
+        <thead class="bg-primary w3-text-white text-center font-weight-bold">
+            <tr>
+                <th>Disease</th>
+                <th>Family</th>
+                <th>Disease</th>
+                <th>Family</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Diabetes</td>
+                <td>
+                    <input type="hidden" asp-for="FamilyHistory.Diabetes.Disease" value="Diabetes" />
+                    <input type="text" class="form-control" asp-for="FamilyHistory.Diabetes.FamilyMember" />
+                </td>
+                <td>Hypertention</td>
+                <td>
+                    <input type="hidden" asp-for="FamilyHistory.Hypertention.Disease" value="Hypertention" />
+                    <input type="text" class="form-control" asp-for="FamilyHistory.Hypertention.FamilyMember" />
+                </td>
+            </tr>
+            <tr>
+                <td>Ishemic Heart</td>
+                <td>
+                    <input type="hidden" asp-for="FamilyHistory.IshemicHeart.Disease" value="IshemicHeart" />
+                    <input type="text" class="form-control" asp-for="FamilyHistory.IshemicHeart.FamilyMember" />
+                </td>
+                <td>Stroke</td>
+                <td>
+                    <input type="hidden" asp-for="FamilyHistory.Stroke.Disease" value="Stroke" />
+                    <input type="text" class="form-control" asp-for="FamilyHistory.Stroke.FamilyMember" />
+                </td>
+            </tr>
+            <tr>
+                <td>Active Tuberculosis</td>
+                <td>
+                    <input type="hidden" asp-for="FamilyHistory.ActiveTuberculosis.Disease" value="ActiveTuberculosis" />
+                    <input type="text" class="form-control" asp-for="FamilyHistory.ActiveTuberculosis.FamilyMember" />
+                </td>
+                <td>Cancer</td>
+                <td>
+                    <input type="hidden" asp-for="FamilyHistory.Cancer.Disease" value="Cancer" />
+                    <input type="text" class="form-control" asp-for="FamilyHistory.Cancer.FamilyMember" />
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <div class="form-group w3-container">
+            <div class="form-check-inline container">
+                <h4>Gynecological and obstetrics History: </h4>
+                <small> not applicable</small>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" onchange="hide('gyn')"
+                           asp-for="GynecologicalHistory.HasGynecologicalHistory" value="False" />
+                    <label class="form-check-label font-weight-bold">Negative</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" class="form-check-input" onchange="document.getElementById('gyn').style.display = 'block';"
+                           asp-for="GynecologicalHistory.HasGynecologicalHistory" value="True" />
+                    <label class="form-check-label font-weight-bold">Positive</label>
+                </div>
+                <h5 class="w3-margin-left h5">If Positive, explain</h5>
+            </div>
+        </div>
+
+        <div id="gyn">
+            <textarea class="form-control" rows="5" asp-for="GynecologicalHistory.Gynecological"></textarea>
+        </div>
+    </div>
+
+    <br />
+</div>
+
+<br />
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <br />
+
+    <div class="form-group w3-container">
+        <h4>PsychoSocial History: </h4>
+    </div>
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h5>Mode: </h5>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Mode" checked="checked" value="Normal" />
+                <label class="form-check-label font-weight-bold">Normal</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Mode" value="Euphoric" />
+                <label class="form-check-label font-weight-bold">Euphoric</label>
+            </div>
+            <h5>Dysphoric: (</h5>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Mode" value="Depressed" />
+                <label class="form-check-label font-weight-bold">Depressed</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Mode" value="Anxious" />
+                <label class="form-check-label font-weight-bold">Anxious</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Mode" value="Angry" />
+                <label class="form-check-label font-weight-bold">Angry</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Mode" value="Apathetic" />
+                <label class="form-check-label font-weight-bold">Apathetic</label>
+            </div>
+            <h5> )</h5>
+        </div>
+    </div>
+
+    <div class="form-group w3-container">
+        <h5 class="h5">Special Habits: </h5>
+    </div>
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h5>Smoking: </h5>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Smoking.Name" value="Current Smoker" />
+                <label class="form-check-label font-weight-bold">Current Smoker</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Smoking.Name" value="EX-Smoker" />
+                <label class="form-check-label font-weight-bold">EX-Smoker</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" checked="checked"
+                       asp-for="PsychoSocial.Smoking.Name" value="Never Smoked" />
+                <label class="form-check-label font-weight-bold">Never Smoked</label>
+            </div>
+        </div>
+        <div class="form-check-inline container">
+            <label class="col-form-label font-weight-bold">Details: </label>
+            <input type="text" asp-for="PsychoSocial.Smoking.Detials"
+                   class="form-control w3-margin-left" />
+        </div>
+    </div>
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h5>Alkohol: </h5><small>If yes explain the amount</small>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Alkohol.Name" value="Dring Alkohol" />
+                <label class="form-check-label font-weight-bold">Yes</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input" checked="checked"
+                       asp-for="PsychoSocial.Alkohol.Name" value="Not Drinking Alkohol" />
+                <label class="form-check-label font-weight-bold">No</label>
+            </div>
+        </div>
+        <div class="form-check-inline container">
+            <label class="col-form-label font-weight-bold">Details: </label>
+            <input type="text" asp-for="PsychoSocial.Alkohol.Detials"
+                   class="form-control w3-margin-left" />
+        </div>
+    </div>
+
+    <div class="form-group w3-container">
+        <h5 class="h5">Beside: </h5>
+    </div>
+
+    <div class="form-group w3-container">
+        <div class="form-check-inline container">
+            <h5>Level: </h5>
+            <input type="text" asp-for="PsychoSocial.Level"
+                   class="form-control w3-margin-left" style="max-width:50%;" />
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Climp" value="Stairs" />
+                <label class="form-check-label font-weight-bold">Stairs</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" class="form-check-input"
+                       asp-for="PsychoSocial.Climp" value="Elevator" />
+                <label class="form-check-label font-weight-bold">Elevator</label>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input"
+                       asp-for="PsychoSocial.LiveAlone" />
+                <label class="form-check-label font-weight-bold">Living alone:</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-6 offset-sm-3 text-center">
+        <div class="form-inline justify-content-center">
+            <button class="btn btn-outline-success" type="submit">
+                <i class="flaticon-add-circular-button"></i>
+            </button>
+        </div>
+    </div>
+
+    <br />
+</div>

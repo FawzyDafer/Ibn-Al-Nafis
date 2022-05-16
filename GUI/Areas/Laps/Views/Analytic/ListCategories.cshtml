@@ -1,0 +1,32 @@
+﻿@model List<InvestigationCategory>
+
+@{
+    Layout = null;
+    double C = Model.Count / 4;
+    int Length = Convert.ToInt32(Math.Ceiling(C));
+    int K = 0;
+}
+
+@for (int i = 0; i <= Length; i++, K += 4)
+{
+    <div class="w3-row-padding active">
+        <br />
+        @for (int j = K; j < K + 4; j++)
+        {
+            try
+            {
+                <div class="w3-quarter" title="Edit"
+                     onclick='document.getElementById("@Model[j].CategoryID").style.display="block";'>
+                    <div class="w3-card M3ybtnaccordion">
+                        <p class="p-0 text-center">@Model[j].Category</p>
+                    </div>
+                </div>
+            }
+            catch (Exception)
+            {
+                <div class="w3-quarter w3-card"></div>
+            }
+        }
+    </div>
+    <br />
+}

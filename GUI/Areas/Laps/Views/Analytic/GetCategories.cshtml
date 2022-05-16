@@ -1,0 +1,37 @@
+﻿@model List<InvestigationCategory>
+
+
+<partial name="Sider" model="4" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <div class="w3-container text-center">
+                <h3 class="w3-wide h3">Categories</h3>
+            </div>
+            <br />
+        </div>
+
+        <div class="alert-success" id="sucess1">
+            @TempData["success"]
+        </div>
+
+        <br />
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <div id="acontent">
+                <partial name="ListCategories" model="Model" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <section id="@item.CategoryID" class="w3-modal">
+        @await Component.InvokeAsync("CategoryEdit", new { Category = item.Category })
+    </section>
+}

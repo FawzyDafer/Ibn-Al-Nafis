@@ -1,0 +1,80 @@
+﻿@model GetPatientConsent
+
+@{
+    double c = Model.PatientsConsents.Count / 3;
+    int Length = Convert.ToInt32(Math.Ceiling(c));
+    var List = Model.PatientsConsents.Values.ToList();
+    int k = 0;
+}
+
+<partial name="Sider" model="4" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <div class="w3-container">
+                <div class="w3-left">
+                    <a asp-area="Reception" asp-controller="PatientConsents" asp-action="Add"
+                       asp-route-Admission="@Model.Admission"
+                       class="btn btn-outline-primary">Add new Consent</a>
+                </div>
+                <div class="w3-right">
+                    <h3 class="text-right h3">Consents</h3>
+                </div>
+            </div>
+            <br />
+        </div>
+
+        <div class="alert-success">
+            @TempData["success"]
+        </div>
+
+        <br />
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <div class="w3-container">
+
+                @for (int i = 0; i <= Length; i++, k += 3)
+                {
+                    <div class="w3-row-padding w3-margin-top active">
+                        @for (int j = k; j < k + 3; j++)
+                        {
+                            try
+                            {
+                                <div class="w3-third"
+                                     onclick="document.location ='@Url.Action("Edit", "PatientConsents",
+                            new { @Admission = List[j].AdmissionID, @Personid = List[j].PCID })';">
+                                    <button class="M3ybtnaccordion" type="button">
+                                        <img src="@Url.Action("ViewImage","PatientConsents",
+                             new { @Personid = List[j].PCID })"
+                                             style="width:100%">
+                                        <div class="w3-container">
+                                            <p class="p-0 text-center">@List[j].Description</p>
+                                        </div>
+                                    </button>
+                                </div>
+                            }
+                            catch (Exception)
+                            {
+                                <div class="w3-third w3-card"></div>
+                            }
+                        }
+                    </div>
+                }
+            </div>
+
+            <div class="w3-container">
+                <div class="w3-row-padding w3-margin-top active">
+                    <a asp-action="Sheat" asp-controller="Patients"
+                       asp-route-Admission="@Model.Admission"
+                       class="btn btn-outline-success">Back</a>
+                </div>
+            </div>
+
+            <br />
+        </div>
+
+    </div>
+</div>

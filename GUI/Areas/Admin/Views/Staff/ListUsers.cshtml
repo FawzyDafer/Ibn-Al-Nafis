@@ -1,0 +1,76 @@
+﻿@model UsersPaging
+@{
+    Layout = null;
+}
+<table id="usertable" class="table table-hover table-responsive-xl" align="center">
+    <thead class="bg-primary w3-text-white text-center">
+        <tr>
+            <th> Name </th>
+            <th> Age </th>
+            <th> Sex </th>
+            <th> Jop </th>
+            <th> Specialization </th>
+            <th> Phone </th>
+            <th> Reset Password </th>
+        </tr>
+    </thead>
+    <tbody class="w3-white text-center">
+        @foreach (var item in Model.UserandRoles)
+        {
+            <tr>
+                <td onclick="document.location = '@Url.Action("Edit", "Staff",
+                        new { @uname = item.User.UserName, @Search = Model.Search})';">
+                    @item.User.Name
+                </td>
+                <td onclick="document.location = '@Url.Action("Edit", "Staff",
+                        new { @uname = item.User.UserName, @Search = Model.Search})';">
+                    @item.User.Age
+                </td>
+                <td onclick="document.location = '@Url.Action("Edit", "Staff",
+                        new { @uname = item.User.UserName, @Search = Model.Search})';">
+                    @item.User.Gender
+                </td>
+                <td onclick="document.location = '@Url.Action("Edit", "Staff",
+                        new { @uname = item.User.UserName, @Search = Model.Search})';">
+                    @item.Role.LastOrDefault()
+                </td>
+                <td onclick="document.location = '@Url.Action("Edit", "Staff",
+                        new { @uname = item.User.UserName, @Search = Model.Search})';">
+                    @item.User.Specialization
+                </td>
+                <td onclick="document.location = '@Url.Action("Edit", "Staff",
+                        new { @uname = item.User.UserName, @Search = Model.Search})';">
+                    @item.User.PhoneNumber
+                </td>
+                <td>
+                    <form asp-area="Admin" asp-controller="Staff" asp-action="ResetPassword"
+                          asp-route-uname="@item.User.UserName"
+                          asp-route-Search="@Model.Search"
+                          data-ajax="true"
+                          data-ajax-method="POST"
+                          data-ajax-mode="replace"
+                          data-ajax-update="#acontent"
+                          data-ajax-loading="#divloading"
+                          data-ajax-confirm="Are you shure you want to Reset the Password?">
+                        <button type="submit" class="btn btn-outline-violet"
+                                asp-route-uname="@item.User.UserName"
+                                asp-route-Search="@Model.Search">
+                            <i class="flaticon-refresh"></i>
+                        </button>
+
+                    </form>
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div page-model="@Model.PagingInfo" page-action="Index"
+     page-classes-enabled="true"
+     page-class="btn"
+     page-class-normal="btn-danger"
+     page-search="@Model.Search"
+     page-class-selected="btn-primary"
+     class="btn-group float-left m-1 ">
+</div>

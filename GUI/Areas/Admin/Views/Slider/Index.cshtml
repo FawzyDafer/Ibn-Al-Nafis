@@ -1,0 +1,67 @@
+﻿@model List<Images>
+
+@{
+    double c = Model.Count / 2;
+    int Length = Convert.ToInt32(Math.Ceiling(c));
+    int k = 0;
+}
+
+<partial name="Sider" model="5" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <div class="w3-center">
+                <h2>Slider</h2>
+            </div>
+            <br />
+        </div>
+
+        <br />
+
+        <div class="alert-success">
+            @TempData["Sucssess"]
+        </div>
+
+        <div class="alert-danger">
+            @TempData["Error"]
+        </div>
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            @for (int i = 0; i <= Length; i++, k += 2)
+            {
+                <div class="w3-row-padding active">
+                    <br />
+                    @for (int j = k; j < k + 2; j++)
+                    {
+                        try
+                        {
+                            var item = Model[j];
+                            <div class="w3-half" onclick="document.location ='@Url.Action("Edit", "Slider",
+                                                                             new { @uname = item.ImageId })';">
+                                <button class="w3-card M3ybtnaccordion w3-display-container" type="button">
+                                    <img src='/Admin/Slider/ViewImage/@item.ImageId' alt="@item.Title" style="height:300px;width:100%;">
+                                    @if (item.Title != " ")
+                                    {
+                                        <div class="w3-display-middle w3-large w3-container w3-padding-16 w3-black">
+                                            @item.Title
+                                        </div>
+                                    }
+                                </button>
+                            </div>
+                        }
+                        catch (Exception)
+                        {
+                            <div class="w3-quarter w3-card"></div>
+                        }
+                    }
+                </div>
+            }
+            <br />
+        </div>
+
+    </div>
+</div>

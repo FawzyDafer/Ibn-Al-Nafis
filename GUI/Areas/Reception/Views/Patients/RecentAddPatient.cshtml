@@ -1,0 +1,83 @@
+﻿@model PatientSearch
+<partial name="Sider" model="4" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <header class="w3-container">
+                <div class="w3-left w3-third">
+                    <h6 class="h6">Please confirm that the Address or telephone number has not been changed by the patient</h6>
+                </div>
+                <div class="w3-twothird M3ysearch-container">
+                    <button type="submit" class="M3ySearchButton btn-outline-secondary"><i class="fa fa-search"></i></button>
+                    <input id="Search" type="search" placeholder="Search for Registrated Patient"
+                           class="M3ySearch" style="font-size: 17px;width:60%;" onkeyup="SearchTable()" />
+                </div>
+            </header>
+            <br />
+        </div>
+
+        <br />
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <table id="M3yTable" class="table table-hover table-responsive-sm table-responsive-xl">
+                <thead class="bg-primary w3-text-white">
+                    <tr>
+                        <th>Name</th>
+                        <th>SSN</th>
+                        <th>Phone</th>
+                        <th>Age</th>
+                        <th>Clinic</th>
+                        <th>Visit Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @try
+                    {
+                        @foreach (var item in Model.PatientRegestiration)
+                        {
+                            <tr onclick="document.location =
+                        '@Url.Action("Sheat", "Patients",new { @Admission = item.Key})';">
+                                <td>@item.Value.Patient.Name</td>
+                                <td>@item.Value.Patient.SSN</td>
+                                <td>@item.Value.Patient.Phone</td>
+                                <td>@item.Value.Patient.Age</td>
+                                <td>@item.Value.PatientClinic.Clinic</td>
+                                <td>@item.Value.PatientClinic.VisitDate.ToUniversalTime()</td>
+                            </tr>
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("Search");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("M3yTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

@@ -1,0 +1,41 @@
+﻿@model Dictionary<string, Consent>
+
+<partial name="Sider" model="6" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <div class="w3-container">
+                <div class="w3-left">
+                    <a onclick="document.getElementById('Add').style.display='block'"
+                       class="btn btn-outline-primary">Add new Consent</a>
+                </div>
+                <div class="w3-right">
+                    <h3 class="text-right h3">Consents</h3>
+                </div>
+            </div>
+            <br />
+        </div>
+
+        <div class="alert-success">
+            @TempData["success"]
+        </div>
+
+        <br />
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <div id="acontent">
+                <partial name="ListConsents" model="Model" />
+            </div>
+        </div>
+
+        <div id="Add" class="w3-modal">
+            <Partial name="Add" model="new Consent()" />
+        </div>
+
+    </div>
+</div>

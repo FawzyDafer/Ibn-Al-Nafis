@@ -1,0 +1,22 @@
+﻿@model Dictionary<string, Clinic>
+
+<partial name="Sider" model="2" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <div class="m-content">
+        <div class="w3-container w3-white">
+            <div class="w3-bar-block w3-animate-zoom">
+                @{
+                    int i = 1;
+                    foreach (var item in Model)
+                    {
+                        <a asp-area="Medical" asp-controller="@item.Value.Title" asp-action="Index"
+                           title="@item.Value.NameInArabic" class="w3-bar-item w3-button btn">
+                            @i - @item.Value.Title
+                        </a>
+                        i++;
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

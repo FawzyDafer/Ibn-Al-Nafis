@@ -1,0 +1,66 @@
+﻿@model UsersPaging
+
+<partial name="Sider" model="1" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <header class="w3-container M3ysearch-container">
+                <div class="w3-left w3-third">
+                    <a asp-controller="Staff" asp-action="Create" class="btn btn-outline-primary">
+                        Create new staff
+                    </a>
+                </div>
+                <div class=" w3-twothird">
+                    <form asp-area="Admin" asp-controller="Staff" asp-action="Index" method="get">
+                        <button type="submit" class="M3ySearchButton  btn-outline-secondary"><i class="fa fa-search"></i></button>
+                        <input id="Search" asp-for="Search" type="search"
+                               placeholder="Search for Staff" class="M3ySearch" style="font-size: 17px;width:60%;" />
+                    </form>
+                </div>
+            </header>
+            <br />
+        </div>
+
+        <br />
+
+        <div class="alert-success">
+            @TempData["success"]
+        </div>
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <div class="w3-main" id="acontent">
+                <partial name="ListUsers" model="Model" />
+            </div>
+        </div>
+
+        <partial name="Load" />
+
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('#Search').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("SearchResult", "Staff")',
+                    data: { search: $("#Search").val() },
+                    dataType: "json",
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item, value: item };
+                        }));
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+    });
+</script>

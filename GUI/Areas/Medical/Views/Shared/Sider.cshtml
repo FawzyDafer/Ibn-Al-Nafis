@@ -1,0 +1,212 @@
+﻿@model SiderHelper
+@{
+    string class0 = (Model.Model == 0) ? "m-menu__item--active" : null;
+    string class1 = (Model.Model == 1) ? "m-menu__item--active" : null;
+    string class2 = (Model.Model == 2) ? "m-menu__item--active" : null;
+    string class3 = (Model.Model == 3) ? "m-menu__item--active" : null;
+    string class4 = (Model.Model == 4) ? "m-menu__item--active m-menu__item--open m-menu__item--expanded" : null;
+    string class5 = (Model.Model == 5) ? "m-menu__item--active m-menu__item--open m-menu__item--expanded" : null;
+    string class6 = (Model.Model == 6) ? "m-menu__item--active m-menu__item--open m-menu__item--expanded" : null;
+    string class7 = (Model.Model == 7) ? "m-menu__item--active m-menu__item--open m-menu__item--expanded" : null;
+    string class8 = (Model.Model == 8) ? "m-menu__item--active m-menu__item--open m-menu__item--expanded" : null;
+    string class9 = (Model.Model == 9) ? "m-menu__item--active m-menu__item--open m-menu__item--expanded" : null;
+    string class10 = (Model.Model == 10) ? "m-menu__item--active" : null;
+    string class11 = (Model.Model == 11) ? "m-menu__item--active" : null;
+    string class12 = (Model.Model == 12) ? "m-menu__item--active" : null;
+    string controller = Model.ClinicTitle.Replace(" ", string.Empty);
+}
+<button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn"><i class="la la-close"></i></button>
+<div id="m_aside_left" class="m-grid__item m-aside-left  m-aside-left--skin-dark ">
+
+    <div id="m_ver_menu"
+         class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark "
+         m-menu-vertical="1"
+         m-menu-scrollable="0" m-menu-dropdown-timeout="500">
+        <ul class="m-menu__nav ">
+            <li class="m-menu__section m-menu__section--first">
+                <h4 class="m-menu__section-text w3-text-white">@Model.ClinicTitle</h4>
+                <i class="m-menu__section-icon flaticon-more-v2"></i>
+            </li>
+            <li class="m-menu__item @class0" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Medical" asp-controller="@controller" asp-action="Settings"
+                   asp-route-Admission="@Model.Admission" class="m-menu__link">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-settings-1"></i>
+                    <span class="m-menu__link-text">Settings</span>
+                </a>
+            </li>
+            <li class="m-menu__item @class1" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Medical" asp-controller="@controller" asp-action="Index"
+                   asp-route-Admission="@Model.Admission" class="m-menu__link">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-users"></i>
+                    <span class="m-menu__link-text">OutPatients</span>
+                </a>
+            </li>
+            <li class="m-menu__item @class2" aria-haspopup="true" m-menu-link-redirect="1">
+                <a href="#" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-users-1"></i>
+                    <span class="m-menu__link-text">InPatients</span>
+                </a>
+            </li>
+            <li class="m-menu__item @class3" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Medical" asp-controller="@controller" asp-action="History"
+                   asp-route-Admission="@Model.Admission" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-folder"></i>
+                    <span class="m-menu__link-text">Past History</span>
+                </a>
+            </li>
+            <li class="m-menu__section ">
+                <h4 class="m-menu__section-text text-white">Investigations</h4>
+                <i class="m-menu__section-icon flaticon-more-v2"></i>
+            </li>
+
+            <li class="m-menu__item m-menu__item--submenu @class4 @class5 @class6"
+                aria-haspopup="true" m-menu-submenu-toggle="hover">
+                <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-file-2"></i>
+                    <span class="m-menu__link-text">Coefficient Analytics</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <span class="m-menu__link">
+                                <span class="m-menu__item-here"></span>
+                                <span class="m-menu__link-text">Coefficient Analytics</span>
+                            </span>
+                        </li>
+
+                        <li class="m-menu__item @class4" aria-haspopup="true">
+                            <a asp-area="Medical" asp-controller="@controller"
+                               asp-action="RequestaCoefficientAnalytics"
+                               asp-route-Admission="@Model.Admission" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i><span class="m-menu__link-text">Request new Coefficient Analytics</span>
+                            </a>
+                        </li>
+
+                        <li class="m-menu__item @class5" aria-haspopup="true">
+                            <a asp-area="Medical" asp-controller="@controller"
+                               asp-action="RecentOrderCoefficientAnalytics"
+                               asp-route-Admission="@Model.Admission" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i><span class="m-menu__link-text">Recent Requested Patient Coefficient Analytics</span>
+                            </a>
+                        </li>
+
+                        <li class="m-menu__item @class6" aria-haspopup="true">
+                            <a asp-area="Medical" asp-controller="@controller"
+                               asp-action="RetrieveCoefficientAnalytics"
+                               asp-route-Admission="@Model.Admission" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i><span class="m-menu__link-text">Retrieve Patient Coefficient Analytics</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="m-menu__item m-menu__item--submenu @class7 @class8 @class9"
+                aria-haspopup="true" m-menu-submenu-toggle="hover">
+                <a href="javascript:;" class="m-menu__link m-menu__toggle">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-file"></i>
+                    <span class="m-menu__link-text">Diagnostic Radiology</span>
+                    <i class="m-menu__ver-arrow la la-angle-right"></i>
+                </a>
+                <div class="m-menu__submenu ">
+                    <span class="m-menu__arrow"></span>
+                    <ul class="m-menu__subnav">
+                        <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true">
+                            <span class="m-menu__link">
+                                <span class="m-menu__item-here"></span>
+                                <span class="m-menu__link-text">Diagnostic Radiology</span>
+                            </span>
+                        </li>
+
+                        <li class="m-menu__item @class7" aria-haspopup="true">
+                            <a asp-area="Medical" asp-controller="@controller" asp-action="RequestaRay"
+                               asp-route-Admission="@Model.Admission" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i><span class="m-menu__link-text">Request new Ray</span>
+                            </a>
+                        </li>
+
+                        <li class="m-menu__item @class8" aria-haspopup="true">
+                            <a asp-area="Medical" asp-controller="@controller"
+                               asp-action="RecentOrderRays"
+                               asp-route-Admission="@Model.Admission" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i><span class="m-menu__link-text">Recent Requested Patient Rays</span>
+                            </a>
+                        </li>
+
+                        <li class="m-menu__item @class9" aria-haspopup="true">
+                            <a asp-area="Medical" asp-controller="@controller"
+                               asp-action="RetrieveRays"
+                               asp-route-Admission="@Model.Admission" class="m-menu__link ">
+                                <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                    <span></span>
+                                </i><span class="m-menu__link-text">Retrieve Patient Rays</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="m-menu__section ">
+                <h4 class="m-menu__section-text text-white">Dignose</h4>
+                <i class="m-menu__section-icon flaticon-more-v2"></i>
+            </li>
+            <li class="m-menu__item @class10" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Medical" asp-controller="@controller" asp-action="Examination"
+                   asp-route-Admission="@Model.Admission" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-medical"></i>
+                    <span class="m-menu__link-text">Dignose</span>
+                </a>
+            </li>
+            <li class="m-menu__item @class11" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Medical" asp-controller="@controller" asp-action="AddFollowUp"
+                   asp-route-Admission="@Model.Admission" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-feed"></i>
+                    <span class="m-menu__link-text">Follow up</span>
+                </a>
+            </li>
+            <li class="m-menu__item @class12" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Medical" asp-controller="@controller" asp-action="Discharge"
+                   asp-route-Admission="@Model.Admission" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-rocket"></i>
+                    <span class="m-menu__link-text">Discharge</span>
+                </a>
+            </li>
+            <li class="m-menu__section">
+                <h4 class="m-menu__section-text w3-text-white">Others</h4>
+                <i class="m-menu__section-icon flaticon-more-v2"></i>
+            </li>
+            <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="" asp-controller="Home" asp-action="About"
+                   class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-information"></i>
+                    <span class="m-menu__link-text">About US</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+</div>

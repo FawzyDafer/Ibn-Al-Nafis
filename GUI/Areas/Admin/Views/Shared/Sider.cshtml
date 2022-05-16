@@ -1,0 +1,71 @@
+﻿@model int?
+@{
+    string class1 = (Model == 1) ? "m-menu__item--active" : null;
+    string class2 = (Model == 2) ? "m-menu__item--active" : null;
+    string class3 = (Model == 3) ? "m-menu__item--active" : null;
+    string class4 = (Model == 4) ? "m-menu__item--active" : null;
+    string class5 = (Model == 5) ? "m-menu__item--active" : null;
+}
+<button class="m-aside-left-close  m-aside-left-close--skin-dark " id="m_aside_left_close_btn"><i class="la la-close"></i></button>
+<div id="m_aside_left" class="m-grid__item m-aside-left  m-aside-left--skin-dark ">
+
+    <div id="m_ver_menu"
+         class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark "
+         m-menu-vertical="1"
+         m-menu-scrollable="0" m-menu-dropdown-timeout="500">
+        <ul class="m-menu__nav ">
+            <li class="m-menu__section m-menu__section--first">
+                <h4 class="m-menu__section-text w3-text-white">Adminstration</h4>
+                <i class="m-menu__section-icon flaticon-more-v2"></i>
+            </li>
+            <li class="m-menu__item @class1" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Admin" asp-controller="Staff" asp-action="Index"
+                   class="m-menu__link">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-users"></i>
+                    <span class="m-menu__link-text"> Staff</span>
+                </a>
+            </li>
+            <li class="m-menu__item @class2" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Admin" asp-controller="LogFile" asp-action="Index"
+                   class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-file-2"></i>
+                    <span class="m-menu__link-text"> Log File</span>
+                </a>
+            </li>
+            <li class="m-menu__item @class3" aria-haspopup="true" m-menu-link-redirect="1">
+                <a href="#" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-doc"></i>
+                    <span class="m-menu__link-text">Investigation</span>
+                </a>
+            </li>
+            <li class="m-menu__item @class4" aria-haspopup="true" m-menu-link-redirect="1">
+                <a href="#" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-medical"></i>
+                    <span class="m-menu__link-text">Medical</span>
+                </a>
+            </li>
+            <li class="m-menu__item @class5" aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="Admin" asp-controller="Slider" asp-action="Index" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-imac"></i>
+                    <span class="m-menu__link-text">Slider</span>
+                </a>
+            </li>
+            <li class="m-menu__section ">
+                <h4 class="m-menu__section-text w3-text-white">Others</h4>
+                <i class="m-menu__section-icon flaticon-more-v2"></i>
+            </li>
+            <li class="m-menu__item " aria-haspopup="true" m-menu-link-redirect="1">
+                <a asp-area="" asp-controller="Home" asp-action="About" class="m-menu__link ">
+                    <span class="m-menu__item-here"></span>
+                    <i class="m-menu__link-icon flaticon-information"></i>
+                    <span class="m-menu__link-text">About US</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

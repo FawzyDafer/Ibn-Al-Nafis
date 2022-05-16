@@ -1,0 +1,142 @@
+﻿@model EditUser
+
+<link href="~/IEdit/iEdit.min.css" rel="stylesheet" />
+<partial name="Sider" model="0" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <div class="m-content">
+        @{
+            List<IdentityError> errors = (List<IdentityError>)TempData["Errors"];
+
+            if (errors != null)
+            {
+                if (errors.Count() > 0)
+                {
+                    <div class="alert-danger">
+                        <ul class="list-group-item-warning list-unstyled">
+                            @foreach (var item in errors)
+                            {
+                                <li>
+                                    @item.Description
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            }
+        }
+
+        <div class="w3-white w3-container">
+            <form asp-area="" asp-controller="Account" asp-action="Index"
+                  enctype="multipart/form-data" method="post" class="clearfix">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="w3-container">
+
+                    <div class="w3-half form-group">
+                        <div style="position:relative;">
+                            <a class='btn' href='javascript:;'>
+                                <img src="/Account/ViewImage/@Model.UserName"
+                                     id="demo" class="m--img-rounded m--marginless" style="height:130px;width:130px;" />
+                                <input id="file" accept="image/*" type="file" class="M3yUpload"
+                                       style="height:130px;width:130px;" />
+                            </a>
+                        </div>
+                        <input type="hidden" asp-for="Image" id="Image" />
+                        <p class="text-danger" id="imgwide"></p>
+                    </div>
+
+                    <div class="w3-half float-right form-group">
+                        <a asp-area="" asp-controller="Account" asp-action="ChangePassword"
+                           asp-route-personid="@Model.UserName" class=" btn btn-outline-violet"
+                           style="margin-top:75px;margin-left:30px;">Change Password</a>
+                    </div>
+
+                </div>
+
+                <div class="w3-half">
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Name" class="form-control-label "></label>
+                        <input asp-for="Name" readonly class="form-control " />
+                        <span asp-validation-for="Name" class="text-danger "></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="UserName" class="form-control-label "></label>
+                        <input asp-for="UserName" readonly class="form-control " />
+                        <span asp-validation-for="UserName" class="text-danger "></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Sex" class="form-control-label "></label>
+                        <input asp-for="Sex" readonly class="form-control " />
+                        <span asp-validation-for="Sex" class="text-danger "></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Phone" class="form-control-label "></label>
+                        <input asp-for="Phone" class="form-control " />
+                        <span asp-validation-for="Phone" class="text-danger "></span>
+                    </div>
+
+                </div>
+
+                <div class="w3-half">
+
+                    <div class="form-group w3-container">
+                        <label asp-for="DateofBirth" class="form-control-label "></label>
+                        <input asp-for="DateofBirth" readonly type="date" class="form-control " />
+                        <span asp-validation-for="DateofBirth" class="text-danger "></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Qualification" class="form-control-label "></label>
+                        <input asp-for="Qualification" readonly class="form-control " />
+                        <span asp-validation-for="Qualification" class="text-danger "></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Specialization" class="form-control-label "></label>
+                        <input asp-for="Specialization" readonly class="form-control " />
+                        <span asp-validation-for="Specialization" class="text-danger "></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Staff" class="form-control-label "></label>
+                        <input asp-for="Staff" readonly class="form-control " />
+                        <span asp-validation-for="Staff" class="text-danger "></span>
+                    </div>
+
+                </div>
+
+                <div class="form-inline btn-group w3-container ">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="flaticon-edit-1"></i>
+                    </button>
+                </div>
+
+                <br />
+                <br />
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<script src="~/IEdit/iEdit.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#file").change(function (e) {
+            var img = e.target.files[0];
+            if (!iEdit.open(img, true, function (res) {
+                $("#demo").attr("src", res);
+                document.getElementById("Image").value = res;
+            })) {
+                document.getElementById("imgwide").innerHTML = "Please Choose Image to upload.";
+            }
+        });
+    });
+</script>

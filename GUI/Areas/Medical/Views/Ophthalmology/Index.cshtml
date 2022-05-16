@@ -1,0 +1,75 @@
+﻿@model PatientSearch
+
+@{string clinic = ViewData["clinic"].ToString(); }
+<partial name="Sider" model="new SiderHelper { Model = 1, ClinicTitle = clinic}" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <div class="m-content">
+        <div class="w3-container w3-white">
+            <div class="w3-container w3-text-grey w3-left">
+                <p class="w3-right">@Model.PagingInfo.TotalItems Patients</p>
+            </div>
+            <div class="w3-twothird M3ysearch-container w3-right">
+                <button type="submit" class="M3ySearchButton btn-outline-secondary"><i class="fa fa-search"></i></button>
+                <input id="Search" type="search" placeholder="Search for Waited Patient"
+                       class="M3ySearch" style="font-size: 17px;width:60%;" onkeyup="SearchTable()" />
+            </div>
+        </div>
+        <br />
+        <br />
+        <table id="M3yTable" class="table table-hover table-responsive-sm table-responsive-xl">
+            <thead class="bg-primary w3-text-white">
+                <tr>
+                    <th>Name</th>
+                    <th>SSN</th>
+                    <th>Phone</th>
+                    <th>Age</th>
+                    <th>Clinic</th>
+                    <th>Visit Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                @try
+                {
+                    @foreach (var item in Model.PatientRegestiration)
+                    {
+                        <tr onclick="document.location =
+                        '@Url.Action("History", "Ophthalmology",new { @Admission = item.Key})';">
+                            <td>@item.Value.Patient.Name</td>
+                            <td>@item.Value.Patient.SSN</td>
+                            <td>@item.Value.Patient.Phone</td>
+                            <td>@item.Value.Patient.Age</td>
+                            <td>@item.Value.PatientClinic.Clinic</td>
+                            <td>@item.Value.PatientClinic.VisitDate.ToUniversalTime()</td>
+                        </tr>
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script>
+    function SearchTable() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("Search");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("M3yTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>

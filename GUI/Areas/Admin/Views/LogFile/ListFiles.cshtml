@@ -1,0 +1,40 @@
+﻿@model SearchLogFile
+
+@{
+    Layout = null;
+}
+
+<table id="usertable" class="table table-hover table-responsive-xl" align="center">
+    <thead class="bg-primary w3-text-white text-center">
+        <tr>
+            <th> User Name </th>
+            <th> Phone </th>
+            <th> Jop </th>
+            <th> Specialization </th>
+            <th> DateTime of log file </th>
+        </tr>
+    </thead>
+    <tbody class="w3-white text-center">
+        @foreach (var item in Model.LogFiles.Values)
+        {
+            <tr onclick="document.location = '@Url.Action("Details", "LogFile",
+                        new { @LogFileID = item.LogFileID, @Search = Model.Search,
+                            @Page = Model.Page})';">
+                <td>@item.Name</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.Jop</td>
+                <td>@item.Specialization</td>
+                <td>@item.DateTime</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div page-model="@Model.PagingInfo" page-action="Index"
+     page-classes-enabled="true"
+     page-class="btn"
+     page-class-normal="btn-danger"
+     page-search="@Model.Search"
+     page-class-selected="btn-primary"
+     class="btn-group float-left m-1 ">
+</div>

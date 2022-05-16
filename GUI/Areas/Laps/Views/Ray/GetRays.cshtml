@@ -1,0 +1,96 @@
+﻿@model SearchInvestigation
+
+<partial name="SiderRay" model="3" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <header class="w3-container">
+                <div class="w3-left w3-third">
+                    <h5>List Of Rays</h5>
+                </div>
+                <div class="w3-twothird M3ysearch-container">
+                    <form asp-area="Laps" asp-controller="Ray" asp-action="GetRays" method="get">
+                        <button type="submit" class="M3ySearchButton btn-outline-secondary"><i class="fa fa-search"></i></button>
+                        <input id="Search" asp-for="Search" type="search"
+                               placeholder="Search for Patient" class="M3ySearch" style="font-size: 17px;width:60%;" />
+                    </form>
+                </div>
+                <br />
+            </header>
+            <br />
+        </div>
+
+        <div class="alert-success">
+            @TempData["success"]
+        </div>
+
+        <br />
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <table class="table table-active table-hover">
+                <thead class="bg-primary w3-text-white">
+                    <tr>
+                        <th>Category</th>
+                        <th>Investigation</th>
+                    </tr>
+                </thead>
+                <tbody class="w3-white">
+                    @try
+                    {
+                        @foreach (var item in Model.Investigations)
+                        {
+                            <tr onclick="document.location =
+                        '@Url.Action("EditRay", "Ray" ,new { @uname = item.Value.TypeID})';">
+                                <td>
+                                    @item.Value.Category
+                                </td>
+                                <td>@item.Value.Type</td>
+                            </tr>
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                </tbody>
+            </table>
+        </div>
+
+        <div page-model="@Model.PagingInfo" page-action="GetRays"
+             page-classes-enabled="true"
+             page-class="btn"
+             page-search="@Model.Search"
+             page-class-normal="btn-danger"
+             page-class-selected="btn-primary"
+             class="btn-group float-left m-1 ">
+        </div>
+
+    </div>
+</div>
+
+<script>
+     $(function () {
+        $('#Search').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("SearchResult", "Ray")',
+                    data: { search: $("#Search").val() },
+                    dataType: "json",
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item, value: item };
+                        }));
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+    });
+</script>

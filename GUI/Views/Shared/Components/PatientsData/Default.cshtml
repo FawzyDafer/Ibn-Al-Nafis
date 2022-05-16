@@ -1,0 +1,67 @@
+﻿@model PatientRegestiration
+
+<div class="w3-card w3-animate-zoom bg-white">
+    <div class="w3-container">
+        <h6 class="h6 M3yText w3-third" title="Patient Name">
+            <b>Name:</b>
+            @Model.Patient.Name
+        </h6>
+        <h6 class="h6 M3yText w3-third" title="Patient Sex">
+            <b>Sex:</b>
+            @Model.Patient.Sex
+        </h6>
+        <h6 class="h6 M3yText w3-third" title="Patient Age">
+            <b>Age:</b>
+            @Model.Patient.Age
+        </h6>
+    </div>
+    <div class="w3-container">
+        <h6 class="h6 M3yText w3-third" title="Patient Phone">
+            <b>Phone:</b>
+            @Model.Patient.Phone
+        </h6>
+        <h6 class="h6 M3yText w3-third" title="Patient Blood Goup">
+            <b>BllodGroup:</b>
+            @Model.Patient.BloodGroup
+        </h6>
+    </div>
+    <div class="w3-container">
+        <h6 class="h6 M3yText w3-third" title="Patient Language">
+            <b>Language:</b>
+            @Model.Patient.Language
+        </h6>
+        <h6 class="h6 M3yText w3-third" title="Required Transelator">
+            <b>Required Transelator:</b>
+            @Model.Patient.RequiredTranslator
+        </h6>
+    </div>
+    <div class="w3-container">
+        <h6 class="h6 M3yText w3-third" title="Working Status">
+            <b>Working Status:</b>
+            @Model.Patient.WorkingStatus
+        </h6>
+        <h6 class="h6 M3yText w3-third" title="Maried Status">
+            <b>Maried Status:</b>
+            @Model.Patient.MariedStatus
+        </h6>
+        <h6 class="h6 M3yText w3-third" title="Does patient have children?">
+            <b>Has Children:</b>
+            @Model.Patient.HasChildren
+        </h6>
+    </div>
+    <div class="w3-container">
+        <h6 class="h6 M3yText w3-third" title="Patient Address">
+            <b>Address:</b>
+            @Model.Patient.Address
+        </h6>
+        <h6 class="h6 M3yText w3-third" title="Admission number">
+            <b>Admisssion NO:</b>
+            @Model.PatientClinic.Counter
+        </h6>
+        <h6 class="h6 M3yText w3-third"
+            title="Patient status indecate weather he or her came into emergency status or not.">
+            <b>Emergency:</b>
+            @Model.PatientClinic.Emergency
+        </h6>
+    </div>
+</div>

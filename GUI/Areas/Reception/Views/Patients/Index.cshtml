@@ -1,0 +1,176 @@
+﻿@model PatientRegestiration
+<partial name="Sider" model="1" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="alert-danger">
+            @ViewData["erro"]
+        </div>
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <br />
+            <form asp-area="Reception" asp-controller="Patients" asp-action="Index"
+                  method="post" class="clearfix">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="w3-half">
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Patient.Name" class="form-control-label font-weight-bold"></label>
+                        <input asp-for="Patient.Name" class="form-control" />
+                        <span asp-validation-for="Patient.Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Patient.Sex" class="form-control-label font-weight-bold"></label>
+                        <div class="form-check-inline container">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="Patient.Sex" value="Male" />
+                                <label class="form-check-label font-weight-bold"> Male</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="Patient.Sex" value="Female" />
+                                <label class="form-check-label font-weight-bold"> Female</label>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Patient.Sex" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="PatientClinic.Clinic" class="form-control-label font-weight-bold"></label>
+                        <select asp-for="PatientClinic.Clinic" class="form-control">
+                            <option value="">select a clinic</option>
+                            @foreach (var item in Model.Clinics)
+                            {
+                                <option value="@item.Key">@item.Value.NameInArabic</option>
+                            }
+                        </select>
+                        <span asp-validation-for="PatientClinic.Clinic" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="PatientClinic.State" class="form-control-label font-weight-bold"></label>
+                        <select asp-for="PatientClinic.State" class="form-control">
+                            <option value="تزكرة أعتيادية">تزكرة أعتيادية</option>
+                            <option value="محول من التأميين">محول من التأميين</option>
+                            <option value="محول من مستشفي الطلبة">محول من مستشفي الطلبة</option>
+                            <option value="علاج علي نفقة الدولة">علاج علي نفقة الدولة</option>
+                        </select>
+                        <span asp-validation-for="PatientClinic.State" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check form-group w3-container">
+                        <input asp-for="PatientClinic.Emergency" type="checkbox" />
+                        <label asp-for="PatientClinic.Emergency" class="form-check-label font-weight-bold"></label>
+                    </div>
+
+                </div>
+
+                <div class="w3-half">
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Patient.SSN" class="form-control-label font-weight-bold"></label>
+                        <input asp-for="Patient.SSN" class="form-control" id="SSN" onblur="SetDate();" />
+                        <span asp-validation-for="Patient.SSN" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Patient.DateOfBirth" class="form-control-label font-weight-bold"></label>
+                        <input asp-for="Patient.DateOfBirth" type="date" class="form-control" />
+                        <span asp-validation-for="Patient.DateOfBirth" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Patient.Phone" class="form-control-label font-weight-bold"></label>
+                        <input asp-for="Patient.Phone" type="tel" class="form-control" />
+                        <span asp-validation-for="Patient.Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Patient.Language" class="form-control-label font-weight-bold"></label>
+                        <div class="form-check-inline container">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" value="Arabic"
+                                       asp-for="Patient.Language" checked="checked" />
+                                <label class="form-check-label font-weight-bold"> Arabic</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="Patient.Language" value="English" />
+                                <label class="form-check-label font-weight-bold"> English</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" asp-for="Patient.Language" value="Other" />
+                                <label class="form-check-label font-weight-bold"> Other</label>
+                            </div>
+                        </div>
+                        <span asp-validation-for="Patient.Language" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check form-group w3-container">
+                        <input asp-for="Patient.RequiredTranslator" type="checkbox" />
+                        <label asp-for="Patient.RequiredTranslator" class="form-check-label font-weight-bold"></label>
+                    </div>
+
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="Patient.Address" class="form-control-label font-weight-bold"></label>
+                    <div class="w3-container">
+                        <div class="w3-half">
+                            <select id="Address" class="form-control w3-half"></select>
+                            <button type="button" class="btn btn-outline-success" onclick=";AddressHidden()">
+                                <i class="fa fa-arrow-circle-o-left"></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-success" onclick=";AddressShow()">
+                                <i class="fa fa-arrow-circle-o-right"></i>
+                            </button>
+                        </div>
+                        <div class="form-group w3-half">
+                            <input asp-for="Patient.Address" id="Government" readonly="readonly"
+                                   class="form-control" />
+                        </div>
+                    </div>
+                    <span asp-validation-for="Patient.Address" class="text-danger"></span>
+                </div>
+
+                <div class="form-inline btn-group w3-container">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="flaticon-add-circular-button"></i>
+                    </button>
+                </div>
+            </form>
+            <br />
+        </div>
+
+    </div>
+</div>
+
+<script src="~/lib/M3Y/Government.js"></script>
+
+<script>
+
+    $(document).ready(AddressGet());
+
+    $(function () {
+        $('#Search').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '@Url.Action("SearchResult", "Patients")',
+                    data: { search: $("#Search").val() },
+                    dataType: "json",
+                    type: "GET",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item, value: item };
+                        }));
+                    },
+                    error: function (xhr, status, error) {
+                        alert("Error");
+                    }
+                });
+            }
+        });
+    });
+
+</script>

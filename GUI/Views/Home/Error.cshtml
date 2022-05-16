@@ -1,0 +1,28 @@
+﻿<partial name="Sider" model="0" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <div class="m-content">
+
+        <div class="bg-primary mb-1 p-2 text-white">
+            <h4>There is an error occure while try to attemp your Request.</h4>
+            <h4>Please ask manufacture for help or try the following methods.</h4>
+            <ul class="list-group text-primary">
+                <li class="list-group-item list-group-flush">
+                    <b>Check the SQL server service is running or not.</b>
+                </li>
+                <li class="list-group-item list-group-flush">
+                    <b>Check if the docker is running or not</b>
+                </li>
+                <li class="list-group-item list-group-flush">
+                    <b> Check if iis is running or not</b>
+                </li>
+            </ul>
+        </div>
+
+        <br />
+
+        <a asp-area="" asp-controller="Home" asp-action="Index"
+           class="btn btn-outline-primary">OK</a>
+
+    </div>
+</div>

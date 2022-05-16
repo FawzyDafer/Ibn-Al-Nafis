@@ -1,0 +1,36 @@
+﻿@model Consent
+<partial name="Sider" model="6" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="padding:32px;">
+
+            <h3 class="text-center h3">Edit Consent</h3>
+            <div class="w3-container">
+                <form asp-action="Edit" asp-controller="Consents" method="post">
+
+                    <input asp-for="ConID" type="hidden" />
+
+                    <div class="form-group w3-container">
+                        <label asp-for="Description" class="form-control-label font-weight-bold"></label>
+                        <input asp-for="Description" type="text" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-inline btn-group w3-container">
+                        <button type="submit"
+                                class="btn btn-outline-success">
+                            <i class="flaticon-edit-1"></i>
+                        </button>
+                        <a asp-area="Reception" asp-controller="Consents" asp-action="Index"
+                           class="btn btn-outline-danger">
+                            <i class="flaticon-cancel"></i>
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>

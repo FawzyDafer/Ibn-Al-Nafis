@@ -1,0 +1,49 @@
+﻿@model Images
+
+<partial name="Sider" model="5" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <form asp-area="Admin" asp-controller="Slider" asp-action="Edit" method="post"
+              enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <input asp-for="ImageId" type="hidden" />
+
+            <div class="w3-container form-group">
+                <div style="position:relative;">
+                    <a class='btn' href='javascript:;'>
+                        Image..
+                        <input id="Image" asp-for="ImageFile" type="file"
+                               class="M3yUpload" accept="image/*" style="width:100%" />
+                    </a>
+                </div>
+                <div class="w3-container w3-display-container">
+                    <img id="demo" src='/Admin/Slider/ViewImage/@Model.ImageId'
+                         alt="@Model.Title" style="width:100%;max-height:400px;">
+                    <div class="w3-display-middle w3-xlarge w3-container w3-padding-16 w3-black">
+                        <input asp-for="Title" class="form-control" placeholder="write description for image.." />
+                    </div>
+                </div>
+                <p class="text-danger" id="imgwide"></p>
+                <span class="text-danger" asp-validation-for="ImageFile"></span>
+            </div>
+
+            <div class="w3-container btn-group">
+                <button type="submit" class="btn btn-outline-primary">
+                    <i class="fa fa-upload"></i> Upload
+                </button>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<script src="~/lib/jquery/Model.js"></script>
+<script>
+    $("#Image").change(function () {
+        readIMG(this, '#demo', 'imgwide');
+    });
+</script>

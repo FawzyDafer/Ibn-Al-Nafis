@@ -1,0 +1,126 @@
+﻿@model CreateUser
+
+<partial name="Sider" model="1" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        @{
+            List<IdentityError> errors = (List<IdentityError>)TempData["error"];
+
+            if (errors != null)
+            {
+                if (errors.Count() > 0)
+                {
+                    <div class="alert-danger">
+                        <ul class="list-group-item-warning list-unstyled">
+                            @foreach (var item in errors)
+                            {
+                                <li>
+                                    @item.Description
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                }
+            }
+        }
+
+        <div class="w3-modal-content w3-container w3-card w3-animate-zoom">
+            <br />
+            <form asp-controller="Staff" asp-action="Create" method="post" class="clearfix">
+                <h4 class="h4 text-center">Create new Staff</h4>
+                <hr class="clearfix" />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="Name" class="form-control-label "></label>
+                    <input asp-for="Name" class="form-control " />
+                    <span asp-validation-for="Name" class="text-danger "></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="UserName" class="form-control-label "></label>
+                    <input asp-for="UserName" class="form-control " />
+                    <span asp-validation-for="UserName" class="text-danger "></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="Sex" class="form-control-label "></label>
+                    <select asp-for="Sex" class="form-control ">
+                        <option value="">Please select the sex</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                    <span asp-validation-for="Sex" class="text-danger "></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="DateofBirth" class="form-control-label "></label>
+                    <input asp-for="DateofBirth" type="date" class="form-control " />
+                    <span asp-validation-for="DateofBirth" class="text-danger "></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="Qualification" class="form-control-label "></label>
+                    <input asp-for="Qualification" class="form-control " />
+                    <span asp-validation-for="Qualification" class="text-danger "></span>
+                </div>
+
+
+                <div class="form-group w3-container">
+                    <label asp-for="Staff" class="form-control-label "></label>
+                    <select asp-for="Staff" class="form-control ">
+                        <option value="">Select jop title</option>
+                        <option value="Manager">Manager</option>
+                        <option value="Receptionist">Receptionist</option>
+                        <option value="Investigation Technical">Investigation Technical</option>
+                        <option value="Ray Technical">Ray Technical</option>
+                        <option value="Doctor">Doctor</option>
+                        <option value="Head quarter" title="رئيس قسم">Head quarter</option>
+                    </select>
+                    <span asp-validation-for="Staff" class="text-danger "></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="Specialization" class="form-control-label"></label>
+                    <select asp-for="Specialization" class="form-control ">
+                        <option value="">Select Specialization</option>
+                        <option value="Audio">Audio</option>
+                        <option value="Cardiology">Cardiology</option>
+                        <option value="Cardiothoracic Surgery">Cardiothoracic Surgery</option>
+                        <option value="Dermatology">Dermatology</option>
+                        <option value="Endemic">Endemic</option>
+                        <option value="General Surgery">General Surgery</option>
+                        <option value="Internal Medical">Internal Medical</option>
+                        <option value="Laser">Laser</option>
+                        <option value="Neuro Surgery">Neuro Surgery</option>
+                        <option value="Neuropsychiatry">Neuropsychiatry</option>
+                        <option value="ObsandGyn">ObsandGyn</option>
+                        <option value="Oncology">Oncology</option>
+                        <option value="Ophthalmology">Ophthalmology</option>
+                        <option value="Orthopedics">Orthopedics</option>
+                        <option value="Orthopedics Surgery">Orthopedics Surgery</option>
+                        <option value="Otorhinolaryngology">Otorhinolaryngology</option>
+                        <option value="Pediatrics">Pediatrics</option>
+                        <option value="Plastic Surgery and blood vessels">Plastic Surgery and blood vessels</option>
+                        <option value="Pulmonology">Pulmonology</option>
+                        <option value="Pulmonology Surgery">Pulmonology Surgery</option>
+                        <option value="Urology">Urology</option>
+                    </select>
+                    <span asp-validation-for="Specialization" class="text-danger"></span>
+                </div>
+
+                <div class="form-inline btn-group w3-container ">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="flaticon-add-circular-button"></i>
+                    </button>
+                    <a asp-controller="Staff" asp-action="Index"
+                       class="btn btn-outline-danger"><i class="flaticon-cancel"></i></a>
+                </div>
+            </form>
+            <br />
+        </div>
+
+    </div>
+</div>

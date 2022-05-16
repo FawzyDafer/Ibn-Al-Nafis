@@ -1,0 +1,54 @@
+﻿@model InvestigationCategory
+@{
+    Layout = null;
+}
+<div class="w3-modal-content w3-card-4 w3-animate-zoom" style="padding:32px;">
+    <form asp-area="Laps" asp-controller="Analytic" asp-action="EditCategory"
+          data-ajax="true"
+          data-ajax-method="POST"
+          data-ajax-loading="#divloading"
+          data-ajax-update="#acontent"
+          data-ajax-success="Success1"
+          data-ajax-failure="Failure1">
+        <div class="w3-container w3-white w3-center">
+            <i onclick="document.getElementById('@Model.CategoryID').style.display = 'none';"
+               class="fa fa-remove w3-right w3-button w3-transparent w3-xxlarge"></i>
+            <h2 class="w3-wide">Edit Category</h2>
+            <h4 class="text-danger" id="Error1">@TempData["Error"]</h4>
+            <div class="alert-danger" asp-validation-summary="ModelOnly"></div>
+            <input type="hidden" asp-for="CategoryID" />
+            <input type="hidden" asp-for="Sort" />
+            <p>
+                <input id="Title" autocomplete="on" spellcheck="true"
+                       asp-for="Category" placeholder="Add category" class="form-control" />
+                <span class="text-danger" asp-validation-for="Category"></span>
+            <p>
+                <button type="submit"
+                        class="w3-padding-large btn btn-outline-success w3-margin-bottom ">
+                    <i class="flaticon-edit-1"></i>
+                </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function Success1() {
+        $('#Title').val(" ");
+        $('#Error1').val(" ");
+        $('#sucess1').val('Category has been edited successfully');
+        var sections = document.getElementsByTagName("section");
+        for (i = 0; i < sections.length; i++) {
+            sections[i].style.display = "none";
+        }
+    }
+
+    function Failure1() {
+        $('#sucess1').val(" ");
+        var title = $('#Title').val();
+        if (title === "" || title === ' ' || title === null) {
+            $('#Error1').val('there is an error occure while attemp to proceed your request please try again.');
+        } else {
+            $('#Error1').val('Category is already existed');
+        }
+    }
+</script>

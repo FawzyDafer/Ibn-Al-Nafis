@@ -1,0 +1,146 @@
+﻿@model InvestigationView
+
+<partial name="Sider" model="2" />
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div class="w3-modal-content w3-card w3-animate-zoom bg-white">
+            <br />
+            <div class="w3-container">
+                <h6 class="h6 M3yText w3-third" title="Patient Name">
+                    <b>Name:</b>
+                    @Model.Patient.Name
+                </h6>
+                <h6 class="h6 M3yText w3-third" title="Patient Sex">
+                    <b>Sex:</b>
+                    @Model.Patient.Sex
+                </h6>
+                <h6 class="h6 M3yText w3-third" title="Patient Age">
+                    <b>Age:</b>
+                    @Model.Patient.Age
+                </h6>
+            </div>
+            <div class="w3-container">
+                <h6 class="h6 M3yText w3-third" title="Patient Phone">
+                    <b>Phone:</b>
+                    @Model.Patient.Phone
+                </h6>
+                <h6 class="h6 M3yText w3-third" title="Patient Blood Goup">
+                    <b>BllodGroup:</b>
+                    @Model.Patient.BloodGroup
+                </h6>
+            </div>
+            <div class="w3-container">
+                <h6 class="h6 M3yText w3-third" title="Patient Language">
+                    <b>Language:</b>
+                    @Model.Patient.Language
+                </h6>
+                <h6 class="h6 M3yText w3-third" title="Required Transelator">
+                    <b>Required Transelator:</b>
+                    @Model.Patient.RequiredTranslator
+                </h6>
+            </div>
+            <div class="w3-container">
+                <h6 class="h6 M3yText w3-third" title="Working Status">
+                    <b>Working Status:</b>
+                    @Model.Patient.WorkingStatus
+                </h6>
+                <h6 class="h6 M3yText w3-third" title="Maried Status">
+                    <b>Maried Status:</b>
+                    @Model.Patient.MariedStatus
+                </h6>
+                <h6 class="h6 M3yText w3-third" title="Has Children">
+                    <b>Has Children:</b>
+                    @Model.Patient.HasChildren
+                </h6>
+            </div>
+            <div class="w3-container">
+                <h6 class="h6 M3yText w3-third" title="Patient Address">
+                    <b>Address:</b>
+                    @Model.Patient.Address
+                </h6>
+                <h6 class="h6 M3yText w3-third" title="Doctor Name">
+                    <b>Dr:</b>
+                    @Model.Doctor.Name
+                </h6>
+                <h6 class="h6 M3yText w3-third" title="Clinic">
+                    <b>@Model.Admission.Clinic Clinic</b>
+                </h6>
+            </div>
+            <br />
+        </div>
+
+        <div class="alert-danger">
+            @ViewData["erro"]
+        </div>
+
+
+        <br />
+
+        <div class="w3-modal-content w3-card w3-animate-zoom">
+            <form asp-area="Laps" asp-controller="Analytic" asp-action="AddInvestigationData" class="clearfix">
+                <br />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="EditInvestigation.PIID" />
+                <input type="hidden" asp-for="EditInvestigation.Type" />
+                <input type="hidden" asp-for="PatientInvestigation.Category" />
+                <input type="hidden" asp-for="Patient.Name" />
+                <input type="hidden" asp-for="Patient.Sex" />
+                <input type="hidden" asp-for="Patient.Age" />
+                <input type="hidden" asp-for="Patient.DateOfBirth" />
+                <input type="hidden" asp-for="Patient.Phone" />
+                <input type="hidden" asp-for="Patient.BloodGroup" />
+                <input type="hidden" asp-for="Patient.Address" />
+                <input type="hidden" asp-for="Patient.SSN" />
+                <input type="hidden" asp-for="Doctor.Name" />
+                <input type="hidden" asp-for="Admission.Clinic" />
+                <input type="hidden" asp-for="Admission.State" />
+                <div class="w3-container">
+                    <div class="form-group w3-twothird">
+                        <label class="form-control-label font-weight-bold">Investigation</label>
+                        <p class="form-control">
+                            @Model.PatientInvestigation.Category   >>
+                            @Model.PatientInvestigation.Type
+                        </p>
+                    </div>
+                    <div class="form-check form-group w3-third">
+                        <input asp-for="EditInvestigation.Finish" type="checkbox" />
+                        <label class="form-check-label font-weight-bold">Take A Samble</label>
+                        <br />
+                        <span asp-validation-for="EditInvestigation.Finish" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="EditInvestigation.Note" class="form-control-label font-weight-bold"></label>
+                    <input asp-for="EditInvestigation.Note" readonly="readonly" class="form-control" />
+                    <span asp-validation-for="EditInvestigation.Note" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label asp-for="EditInvestigation.Result" class="form-control-label font-weight-bold"></label>
+                    <input asp-for="EditInvestigation.Result" class="form-control" />
+                    <span asp-validation-for="EditInvestigation.Result" class="text-danger"></span>
+                </div>
+
+                <div class="form-group w3-container">
+                    <label class="form-control-label font-weight-bold">Report</label>
+                    <textarea asp-for="EditInvestigation.Comment" class="form-control" rows="5"></textarea>
+                    <span asp-validation-for="EditInvestigation.Comment" class="text-danger"></span>
+                </div>
+
+                <div class="form-inline btn-group w3-container">
+                    <button type="submit" class="btn btn-outline-success">
+                        <i class="flaticon-edit-1"></i>
+                    </button>
+                    <a asp-area="Laps" asp-controller="Analytic" asp-action="Index"
+                       class="btn btn-outline-danger"><i class="flaticon-cancel"></i></a>
+                </div>
+
+            </form>
+            <br />
+        </div>
+
+    </div>
+</div>

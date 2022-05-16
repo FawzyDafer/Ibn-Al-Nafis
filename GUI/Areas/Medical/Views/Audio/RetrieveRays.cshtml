@@ -1,0 +1,59 @@
+﻿@model GetPatientInvestigation
+
+@{string clinic = ViewData["clinic"].ToString(); }
+<partial name="Sider"
+         model="new SiderHelper { Model = 9, ClinicTitle = clinic,Admission = Model.Admission}" />
+
+<div class="m-grid__item m-grid__item--fluid m-wrapper">
+    <!-- END: Subheader -->
+    <div class="m-content">
+
+        <div>
+            @await Component.InvokeAsync("PatientsData", new { AdmissionID = Model.Admission })
+        </div>
+
+        <br />
+
+        <div class="w3-card w3-animate-zoom bg-white w3-container">
+            <br />
+            <table class="table table-hover table-responsive-sm table-responsive-xl">
+                <thead class="bg-primary w3-text-white">
+                    <tr>
+                        <th> Category </th>
+                        <th> type </th>
+                        <th> Date of Request </th>
+                        <th> Doctor Name </th>
+                        <th> Clinic </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Investigations)
+                    {
+                        <tr onclick="document.location =
+                        '@Url.Action("GetRayDetatils", "Audio" ,
+                        new { @uname = item.Value.PIID, @Admission = Model.Admission})';">
+                            <td title="Category">@item.Value.Category</td>
+                            <td title="type">@item.Value.Type</td>
+                            <td title="Date of Request">@item.Value.RequestDate.ToUniversalTime()</td>
+                            <td title="Doctor Name">@item.Value.DoctorName</td>
+                            <td title="Clinic">@item.Value.Clinic</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+        </div>
+
+        <br />
+
+        <div page-model="@Model.PagingInfo" page-action="RetrieveCoefficientAnalytics"
+             page-search="@Model.Admission"
+             page-classes-enabled="true"
+             page-class="btn"
+             page-class-normal="btn-danger"
+             page-class-selected="btn-primary"
+             class="btn-group float-left m-1 ">
+        </div>
+
+    </div>
+</div>
